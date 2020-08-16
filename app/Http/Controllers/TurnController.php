@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Turn;
 class TurnController extends Controller
 {
     /**
@@ -13,7 +13,10 @@ class TurnController extends Controller
      */
     public function index()
     {
-        return view('turns.index');
+        // if(!Gate::allows('catalogo-mantenimiento-list')) return abort(401);
+        $turns = Turn::paginate(10);
+        $response = (request()->wantsJson()) ? response()->json($turns) : view('turns.index', compact('turns'));
+        return $response;
     }
 
     /**
