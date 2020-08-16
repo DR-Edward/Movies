@@ -1,6 +1,6 @@
 const mix = require('laravel-mix');
 
-if (!mix.inProduction()) {
+  if (!mix.inProduction()) {
     let LiveReloadPlugin = require('webpack-livereload-plugin')
     let FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
     mix.sourceMaps()
@@ -26,26 +26,29 @@ if (!mix.inProduction()) {
     })
   }
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
+  /*
+  |--------------------------------------------------------------------------
+  | Mix Asset Management
+  |--------------------------------------------------------------------------
+  |
+  | Mix provides a clean, fluent API for defining some Webpack build steps
+  | for your Laravel application. By default, we are compiling the Sass
+  | file for the application as well as bundling up all the JS files.
+  |
+  */
 
-mix.setPublicPath('public')
+  mix.setPublicPath('public')
 
-mix.js('resources/assets/js/app.js', 'dist/')
-   .sass('resources/assets/sass/app.scss', 'dist/')
-   .styles(['resources/assets/css/admin_css_material-dashboard_css.css'], 'public/dist/all.css')
-   .options({
+  mix.js('resources/assets/js/app.js', 'dist/')
+    .sass('resources/assets/sass/app.scss', 'dist/')
+    .options({
       processCssUrls: false
-   });
-   
-if (mix.inProduction()) {
+    });
+    
+  if (mix.inProduction()) {
   mix.version()
-}
+  }
+
+
+// mix.js('resources/assets/js/app.js', 'public/js')
+//   .sass('resources/assets/sass/app.scss', 'public/css');

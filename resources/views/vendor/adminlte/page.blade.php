@@ -12,6 +12,7 @@
     @stack('css')
     @yield('css')
     <link href="{{ asset('../dist/app.css') }}" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
 @stop
 
 @section('classes_body', $layoutHelper->makeBodyClasses())
@@ -47,7 +48,9 @@
             <div class="content">
                 <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
                     <div id="app">
-                        @yield('content')
+                        <v-app>
+                            @yield('content')
+                        </v-app>
                     </div>
                 </div>
             </div>
