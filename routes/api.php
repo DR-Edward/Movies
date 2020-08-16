@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('login', 'Auth\LoginController@api_login');
+  
+    Route::group(['middleware' => 'auth:api'], function() {
+        Route::post('logout', 'Auth\LoginController@api_logout');
+    });
+});
+
+
+Route::group(['middleware' => 'auth:api'], function() {
+    // ROUTES -> Turns
+    Route::resource('/turns', 'TurnController');
+
+    // ROUTES -> Movies
+    Route::resource('/movies', 'MovieController');
 });

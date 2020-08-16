@@ -53,6 +53,14 @@ class Refresh extends Command
         if ($exitCode > 0) return $exitCode;
 
         $this->line('');
+        $this->line('');
+        $this->info('- Generating Passport Encryption Keys');
+        $this->line('');
+        $exitCode = $this->call('passport:install', [
+            '--force' => true
+        ]);
+
+        $this->line('');
         $this->info('- Creating Symbolic link for the File Storage');
         $this->line('');
         $exitCode = $this->call('storage:link');
