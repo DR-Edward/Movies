@@ -1,6 +1,8 @@
 <?php
 namespace App\Helpers\Movie;
+
 use App\Movie;
+use App\Helpers\Miscelaneus\ImageHandler;
 
 class Logic {
     /**
@@ -11,8 +13,7 @@ class Logic {
     public static $rules = [
         'name' => 'required|string',
         'publicationDate' => 'required|date_format:Y-m-d',
-        // 'image' => 'required|image',
-        'imageLink' => 'required|string',
+        'image' => 'required|image',
         'active' => 'required|boolean',
     ];
 
@@ -28,8 +29,12 @@ class Logic {
         $message_text = 'Created';
         $code = 201;
 
+        $imageData = ImageHandler::store($request->file('image'));
+
         try{
-            $movie = Movie::create($request->all());
+            $movieData = $request->all();
+            $movieData['imageLink'] = $imageData['link'];
+            $movie = Movie::create($movieData);
         }catch(\Exception $e){
             $code = 422;
             $message_type = 'error';

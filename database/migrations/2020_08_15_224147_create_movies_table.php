@@ -17,7 +17,7 @@ class CreateMoviesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->date('publicationDate');
-            $table->string('imageLink');
+            $table->string('imageLink')->nullable();
             $table->boolean('active');
             $table->softDeletes();
             $table->timestamps();

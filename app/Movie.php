@@ -32,4 +32,22 @@ class Movie extends Model
     protected $fillable = [
         'name', 'publicationDate', 'imageLink', 'active'
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['full_link'];
+
+    /**
+     * Get the full link.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getFullLinkAttribute($value)
+    {
+        return env('APP_URL').$this->imageLink;
+    }
 }
