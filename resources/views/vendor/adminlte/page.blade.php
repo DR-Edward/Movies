@@ -11,6 +11,7 @@
 @section('adminlte_css')
     @stack('css')
     @yield('css')
+    <link href="{{ asset('../dist/app.css') }}" rel="stylesheet">
 @stop
 
 @section('classes_body', $layoutHelper->makeBodyClasses())
@@ -45,7 +46,9 @@
             {{-- Main Content --}}
             <div class="content">
                 <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
-                    @yield('content')
+                    <div id="app">
+                        @yield('content')
+                    </div>
                 </div>
             </div>
 
@@ -67,4 +70,5 @@
 @section('adminlte_js')
     @stack('js')
     @yield('js')
+    <script src="{{ asset('../dist/app.js') }}" defer></script>
 @stop
