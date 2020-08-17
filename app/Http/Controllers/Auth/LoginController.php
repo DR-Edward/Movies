@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\Helpers\Auth\Login;
+use App\Helpers\Auth\Logout;
 
 class LoginController extends Controller
 {
@@ -35,6 +38,28 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('api_logout','logout');
     }
+
+    /**
+     * login
+     * get a token
+     * @return \Illuminate\Http\Response (JSON)
+     */
+    public function api_login(Request $request){
+        $loginData = Login::create_token($request);
+        return response()->json($loginData);
+    }
+    
+    /**
+     * logout
+     * revoke a token
+     * @return \Illuminate\Http\Response (JSON)
+     */
+    public function api_logout(Request $request){
+
+        $logoutData = Logout::revoke_token($request);
+        return response()->json($logoutData);
+    }
+
 }

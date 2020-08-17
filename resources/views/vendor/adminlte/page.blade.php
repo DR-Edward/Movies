@@ -11,6 +11,8 @@
 @section('adminlte_css')
     @stack('css')
     @yield('css')
+    <link href="{{ asset('../dist/app.css') }}" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
 @stop
 
 @section('classes_body', $layoutHelper->makeBodyClasses())
@@ -45,7 +47,11 @@
             {{-- Main Content --}}
             <div class="content">
                 <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
-                    @yield('content')
+                    <div id="app">
+                        <v-app>
+                            @yield('content')
+                        </v-app>
+                    </div>
                 </div>
             </div>
 
@@ -67,4 +73,5 @@
 @section('adminlte_js')
     @stack('js')
     @yield('js')
+    <script src="{{ asset('../dist/app.js') }}" defer></script>
 @stop
