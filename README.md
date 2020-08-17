@@ -19,7 +19,7 @@
 *Usuario: admin@dredward.site
 *Contraseña: 6C91by9zruEwTNsT
 
-##Api
+## Api
 Se puede obtener una colección completa con todos los endpoints por medio de los siguientes archivos:
 * Insomnia (JSON) - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/Insomnia_2020-08-17.json)**
 * Insomnia (HAR) - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/Insomnia_2020-08-17.har)**
