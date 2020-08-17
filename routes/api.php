@@ -24,8 +24,10 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth:api'], function() {
     // ROUTES -> Turns
+    Route::patch('/turns/activator/{id}', 'TurnController@activator');
     Route::resource('/turns', 'TurnController');
 
     // ROUTES -> Movies
+    Route::patch('/movies/activator/{id}', 'MovieController@activator');
     Route::resource('/movies', 'MovieController');
 });
