@@ -1,8 +1,25 @@
+
+// Material Icons
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons");
+
+// Alertify
+@import url("https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css");
+@import url("https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/themes/bootstrap.min.css");
+
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// @import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Vuetify
+@import "~vuetify/dist/vuetify.min.css";
+
+// Sweetalert
+@import url("https://s3-us-west-2.amazonaws.com/bucketvipyme/GENERAL_FILES/plugin/css/sweetalert.css");
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// Fontawsome
+@import url("https://use.fontawesome.com/releases/v5.8.2/css/all.css");
