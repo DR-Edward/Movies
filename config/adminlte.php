@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Movies',
+    'title' => 'Movies Manager',
     'title_prefix' => '',
     'title_postfix' => '',
 

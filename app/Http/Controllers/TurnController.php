@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Turn;
+use App\Helpers\Turn\Logic;
 
 class TurnController extends Controller
 {
@@ -13,7 +15,9 @@ class TurnController extends Controller
      */
     public function index()
     {
-        return view('turns.index');
+        $turns = Turn::paginate(10);
+        $response = (request()->wantsJson()) ? response()->json($turns) : view('turns.index', compact('turns'));
+        return $response;
     }
 
     /**
@@ -34,7 +38,8 @@ class TurnController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $response = Logic::store($request);
+        return response()->json($response, $response['code']);
     }
 
     /**
@@ -68,7 +73,8 @@ class TurnController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $response = Logic::update($request, $id);
+        return response()->json($response, $response['code']);
     }
 
     /**
@@ -79,6 +85,19 @@ class TurnController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $response = Logic::destroy($id);
+        return response()->json($response, $response['code']);
+    }
+    
+    /**
+     * Activate or desactivate an item.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function activator(Request $request, $id)
+    {
+        $response = Logic::activator($request, $id);
+        return response()->json($response, $response['code']);
     }
 }
