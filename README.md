@@ -16,8 +16,8 @@
 
 ## Acceso
 
-*Usuario: admin@dredward.site
-*Contraseña: 6C91by9zruEwTNsT
+* Usuario: admin@dredward.site
+* Contraseña: 6C91by9zruEwTNsT
 
 ## Api
 Se puede obtener una colección completa con todos los endpoints por medio de los siguientes archivos:
