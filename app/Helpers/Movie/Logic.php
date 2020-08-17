@@ -132,4 +132,33 @@ class Logic {
             'code' => $code
         ];
     }
+
+    /**
+     * @param  int  $id
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public static function update_turns($request, $id){
+        $request->validate(['turns_id'    => 'required|array']);
+
+        $message_type = 'success';
+        $message_text = 'Updated';
+        $code = 200;
+
+        try{
+            $movie = Movie::find($id)->turns()->sync($request->input('turns_id'));
+        }catch(\Exception $e){
+            $code = 404;
+            $message_type = 'error';
+            $message_text = 'Can not be updated';
+        }
+
+        return [
+            'message_type' => $message_type,
+            'message_text' => $message_text,
+            'code' => $code
+        ];
+    }
 }

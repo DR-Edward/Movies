@@ -31,4 +31,12 @@ class Turn extends Model
     protected $fillable = [
         'time', 'active'
     ];
+
+    /**
+     * The movies that belong to the turn.
+     */
+    public function movies()
+    {
+        return $this->belongsToMany('App\Movie');
+    }
 }
