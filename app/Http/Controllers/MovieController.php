@@ -15,7 +15,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movies = Movie::paginate(10);
+        $movies = Movie::with(['turns'])->paginate(10);
         $response = (request()->wantsJson()) ? response()->json($movies) : view('movies.index', compact('movies'));
         return $response;
     }
@@ -98,6 +98,18 @@ class MovieController extends Controller
     public function activator(Request $request, $id)
     {
         $response = Logic::activator($request, $id);
+        return response()->json($response, $response['code']);
+    }
+    
+    /**
+     * Activate or desactivate an item.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update_turns(Request $request, $id)
+    {
+        $response = Logic::update_turns($request, $id);
         return response()->json($response, $response['code']);
     }
 }

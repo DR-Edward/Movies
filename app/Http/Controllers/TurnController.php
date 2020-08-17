@@ -15,7 +15,7 @@ class TurnController extends Controller
      */
     public function index()
     {
-        $turns = Turn::paginate(10);
+        $turns = Turn::with(['movies'])->paginate(10);
         $response = (request()->wantsJson()) ? response()->json($turns) : view('turns.index', compact('turns'));
         return $response;
     }

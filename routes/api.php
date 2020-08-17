@@ -29,5 +29,6 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     // ROUTES -> Movies
     Route::patch('/movies/activator/{id}', 'MovieController@activator');
+    Route::patch('/movies/turns/{id}', 'MovieController@update_turns');
     Route::resource('/movies', 'MovieController');
 });

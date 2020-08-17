@@ -50,4 +50,12 @@ class Movie extends Model
     {
         return env('APP_URL').$this->imageLink;
     }
+
+    /**
+     * The turns that belong to the movie.
+     */
+    public function turns()
+    {
+        return $this->belongsToMany('App\Turn');
+    }
 }
