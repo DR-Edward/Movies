@@ -3,9 +3,39 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Crud;
+use App\Rules\NotPresent;
 
 class Movie extends Model
 {
+    use Crud;
+
+    /**
+     * The validation rules.
+     *
+     * @var array
+     */
+    public static $rules = [
+        'name' => 'required|string',
+        'publicationDate' => 'required|date_format:Y-m-d',
+        'image' => 'required|image',
+        'active' => 'required|boolean',
+    ];
+    
+    /**
+     * The validation rules for activator field.
+     *
+     * @var array
+     */
+    public static function rules_activator() {
+        return [
+            'active' => 'required|boolean',
+            'name' => [new NotPresent],
+            'publicationDate' => [new NotPresent],
+            'image' => [new NotPresent],
+        ];
+    }
+
     /**
      * The attributes that should be mutated to dates.
      *

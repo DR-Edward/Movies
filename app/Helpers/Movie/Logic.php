@@ -148,7 +148,7 @@ class Logic {
         $code = 200;
 
         try{
-            $movie = Movie::find($id)->turns()->sync($request->input('turns_id'));
+            $movie = Movie::findOrFail($id)->turns()->sync($request->input('turns_id'));
         }catch(\Exception $e){
             $code = 404;
             $message_type = 'error';

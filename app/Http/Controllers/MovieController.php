@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Movie;
-use App\Helpers\Movie\Logic;
-
 class MovieController extends Controller
 {
     /**
@@ -15,7 +13,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movies = Movie::with(['turns'])->paginate(10);
+        $movies = Movie::index_default(['turns']);
         $response = (request()->wantsJson()) ? response()->json($movies) : view('movies.index', compact('movies'));
         return $response;
     }
@@ -38,7 +36,7 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        $response = Logic::store($request);
+        $response = Movie::store_with_file($request);
         return response()->json($response, $response['code']);
     }
 
@@ -50,7 +48,8 @@ class MovieController extends Controller
      */
     public function show($id)
     {
-        //
+        $response = Movie::show_default($id);
+        return response()->json($response, $response['code']);
     }
 
     /**
@@ -73,7 +72,7 @@ class MovieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $response = Logic::update($request, $id);
+        $response = Movie::update_default($request, Movie::$rules, $id);
         return response()->json($response, $response['code']);
     }
 
@@ -85,7 +84,7 @@ class MovieController extends Controller
      */
     public function destroy($id)
     {
-        $response = Logic::destroy($id);
+        $response = Movie::destroy($id);
         return response()->json($response, $response['code']);
     }
 
@@ -97,7 +96,7 @@ class MovieController extends Controller
      */
     public function activator(Request $request, $id)
     {
-        $response = Logic::activator($request, $id);
+        $response = Movie::update_default($request, Movie::rules_activator(), $id);
         return response()->json($response, $response['code']);
     }
     
@@ -109,7 +108,7 @@ class MovieController extends Controller
      */
     public function update_turns(Request $request, $id)
     {
-        $response = Logic::update_turns($request, $id);
+        $response = Movie::update_many_to_many($request, $id, "turns", "turns_id");
         return response()->json($response, $response['code']);
     }
 }
