@@ -53,7 +53,7 @@ trait Crud {
     }
 
     // TODO - NEEDS REFACTORING: we need a service provider for file storing and also unificate both functions for storage!
-    
+
     /**
      * Store a newly created resource in storage.
      * 
@@ -113,6 +113,7 @@ trait Crud {
 
     /**
      * Update the specified resource in storage.
+     * it can be one field or more. This is controlled by the rules implemented in each case
      * 
      * @param  \Illuminate\Http\Request  $request
      * @param  array  $rules
