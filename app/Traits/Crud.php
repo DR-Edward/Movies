@@ -179,16 +179,16 @@ trait Crud {
     // RELATIONSHIPS
 
     /**
-     * $relationship must be a valid relationship
+     * $relation_name must be a valid relationship
      * $field_name muyt be a valid request input name
      * 
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @param  string  $relationship
+     * @param  string  $relation_name
      * @param  string  $field_name
      * @return array
      */
-    public static function update_many_to_many($request, $id, $relation = '', $field_name = 'id_array'){
+    public static function update_many_to_many($request, $id, $relation_name = '', $field_name = 'id_array'){
         $request->validate([
             $field_name   => 'required|array',
             $field_name.'.*' => 'integer',
@@ -200,7 +200,7 @@ trait Crud {
         $code = 200;
 
         try{
-            $resource = self::findOrFail($id)->$relation()->sync($request->input($field_name));
+            $resource = self::findOrFail($id)->$relation_name()->sync($request->input($field_name));
         }catch(\Exception $e){
             $resource = $e;
             $code = 404;
