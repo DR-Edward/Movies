@@ -1,10 +1,15 @@
 <?php
 
 namespace App;
+
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Crud;
+use App\Rules\NotPresent;
 
 class Turn extends Model
 {
+    use Crud;
+
     /**
      * The attributes that should be mutated to dates.
      *
@@ -30,6 +35,16 @@ class Turn extends Model
      */
     protected $fillable = [
         'time', 'active'
+    ];
+
+    /**
+     * The validation rules.
+     *
+     * @var array
+     */
+    public static $rules = [
+        'time'       => 'required|date_format:H:i:s',
+        'active'    => 'required|boolean',
     ];
 
     /**

@@ -58,18 +58,20 @@ trait Crud {
      * @param  int  $id
      * @return array
      */
-    public static function store_default($id) {
+    public static function store_default($request) {
+        $request->validate(self::$rules);
+
         $resource = null;
         $message_type = 'success';
         $message_text = 'Deleted';
         $code = 200;
 
         try{
-            $resource = self::findOrFail($id);
+            $resource = self::create($request->all());
         }catch(\Exception $e){
             $resource = $e;
             $message_type = 'error';
-            $message_text = 'Can not be found';
+            $message_text = 'Can not be created';
             $code = 404;
         }
 
@@ -127,7 +129,7 @@ trait Crud {
         $code = 200;
 
         try{
-            $resource = self::findOrFailf($id)->update($request->all());
+            $resource = self::findOrFail($id)->update($request->all());
         }catch(\Exception $e){
             $resource = $e;
             $message_type = 'error';

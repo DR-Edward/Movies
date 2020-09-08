@@ -15,7 +15,7 @@ class TurnController extends Controller
      */
     public function index()
     {
-        $turns = Turn::with(['movies'])->paginate(10);
+        $turns = Turn::index_default(['movies']);
         $response = (request()->wantsJson()) ? response()->json($turns) : view('turns.index', compact('turns'));
         return $response;
     }
@@ -38,7 +38,7 @@ class TurnController extends Controller
      */
     public function store(Request $request)
     {
-        $response = Logic::store($request);
+        $response = Turn::store_default($request);
         return response()->json($response, $response['code']);
     }
 
@@ -73,7 +73,7 @@ class TurnController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $response = Logic::update($request, $id);
+        $response = Turn::update_default($request, Turn::$rules, $id);
         return response()->json($response, $response['code']);
     }
 
