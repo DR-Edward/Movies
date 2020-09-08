@@ -1,5 +1,5 @@
 
-## Movies Manager **[UAT Demo](http://movies.dredward.site)** **[DEV Demo](http://movies.dredward.site)**
+## Movies Manager **[UAT Demo](http://uat-movies.dredward.site)** **[DEV Demo](http://dev-movies.dredward.site)**
 
 ## Status: 
 * Frontend: En desarrollo
@@ -22,8 +22,8 @@
 
 ## Acceso
 
-*Usuario: admin@dredward.site
-*Contraseña: 6C91by9zruEwTNsT
+* Usuario: admin@dredward.site
+* Contraseña: 6C91by9zruEwTNsT
 
 ## Api
 
