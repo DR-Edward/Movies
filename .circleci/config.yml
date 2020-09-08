@@ -30,7 +30,7 @@ jobs:
       - run:
           name: Install PHP Extensions
           command: | 
-            apt install -y zlib1g-dev libpng-dev
+            apt install -y zlib1g-dev libpng-dev libzip-dev
             docker-php-ext-install pdo pdo_mysql zip gd
       - run:
           name: Install Composer
