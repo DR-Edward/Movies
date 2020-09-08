@@ -2,8 +2,6 @@
 namespace App\Traits;
 use Illuminate\Contracts\Validation\Rule\NotPresent;
 use App\Helpers\Miscelaneus\ImageHandler;
-use App\Movie;
-use App\Turn;
 
 trait Crud {
     /**
