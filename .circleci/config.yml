@@ -213,19 +213,19 @@ jobs:
           name: Migrating
           command: |
             ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && php artisan migrate --force"
-      # - run:
-      #     name: Passport Encryption Keys Generation
-      #     command: |
-      #       ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/prod && php artisan passport:install --force"
+      - run:
+          name: Passport Encryption Keys Generation
+          command: |
+            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/prod && php artisan passport:install --force"
       - run:
           name: Display an Inspiring Quote
           command: |
             ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && php artisan inspire"
       # Habilitarémos este comando cuando el cliente solicite acceso a producción
-      # - run:
-      #     name: Disable Maintenance Mode
-      #     command: |
-      #       ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && php artisan up"
+      - run:
+          name: Disable Maintenance Mode
+          command: |
+            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && php artisan up"
 
 workflows:
   version: 2
