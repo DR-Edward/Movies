@@ -70,7 +70,7 @@ jobs:
       - run:
           name: Enable Maintenance Mode
           command: |
-            ssh -vvv ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/movies/dev && php artisan down --message=\"Update in progress\" --retry=30"
+            ssh -vvv ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && php artisan down --message=\"Update in progress\" --retry=30"
       - run:
           name: Checkout Develop
           command: |
@@ -161,7 +161,7 @@ jobs:
       - run:
           name: Passport Encryption Keys Generation
           command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/uat && php artisan passport:install --force"
+            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/uat && php artisan passport:install --force"
       - run:
           name: Display an Inspiring Quote
           command: |
@@ -216,7 +216,7 @@ jobs:
       # - run:
       #     name: Passport Encryption Keys Generation
       #     command: |
-      #       ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/prod && php artisan passport:install --force"
+      #       ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/prod && php artisan passport:install --force"
       - run:
           name: Display an Inspiring Quote
           command: |
