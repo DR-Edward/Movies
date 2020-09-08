@@ -1,0 +1,738 @@
+{
+	"info": {
+		"_postman_id": "96736cec-f7d4-4039-ba70-4e218d51a5eb",
+		"name": "Movies",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST /api/movies ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a3dd55f3-f66b-4980-b3fe-060292d71e9b",
+						"exec": [
+							"pm.test(\"Status code is 0\", function () {",
+							"    pm.response.to.have.status(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNGIxN2IzNDhlZWE4NmVkYTg4ZTNjZGFhYTJmNzI4NDNiYjE2OTJkNmE5YWFmYjE4NTk4OGNiNTBhNjJmM2FkYjc5ZjM1Njc3ZGUxOThlYzUiLCJpYXQiOjE1OTc2NDc1MzgsIm5iZiI6MTU5NzY0NzUzOCwiZXhwIjoxNjI5MTgzNTM4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.OY22p8h2ckABsAE_4FJbXHfnN50L0MZ_RbhwFk0Ij7qFTcnXdj3GIAQunKTmrvOH8VoXoqsDC9tA4CV3gv2FWM_qEmkiqcoIs0X6YLI4fKhzfDu3WmG7_wJ3GOXQDMsttmHD5Z65kI-GUhwOOzgq_fQDatO_ZN-9g9Ox7Y5eUB4YVorBkgBWGwhcI8C_n_PZZH_tKLUh7mS67KHAvIRWWg_Bq9KqdWYbzF2T_gLUXeR2Vn_WejtfFtwhaO4Br53o2fnxKhxGXpQHTVnB-xYTpHfVgh56-_h2bisVpdWUhb69FQ76MoUXNhmbjKifeQZ51kzZmvZYLfnyZd15YeSveL7yOB4rEEq00BLOB0dgnbN_uyGxe9bwtx7vGgElfh-z3ScGUyiVgBrU-JmAmqdlK2PubEVqVdLtTovoWQVFsVfR1uupC1TlCI619VDRB_ibvqvyX3M7Fs4i9efJxs-RSXNZ9gE5jw453NgdiKIGhwnXJFEYWdLAjSYfeqDvkTuZZm15uOrXeoRiQoFIiM8f8H86U9SMXupnP0bQ4AOCg3x6J9fJegF_NozP-4m72b9UaSSA9AKgwFVLw-RnTuGBDvF4dW4rGd_bdWgcYjTtLk0beyTvsJt6u2W7_hc9r3Z0xqu6_47mFI4jnPNX46dV6g0qjlMsT2cYifja1MerAvM"
+					},
+					{
+						"key": "Accept",
+						"value": "aplication/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "End game",
+							"type": "text"
+						},
+						{
+							"key": "publicationDate",
+							"value": "2019-04-22",
+							"type": "text"
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/F:/DescargasRaven/endgame.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://uat-movies.dredward.site/api/movies",
+					"protocol": "http",
+					"host": [
+						"uat-movies",
+						"dredward",
+						"site"
+					],
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /api/auth/login ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "940cbdd8-ddc6-4e73-a9ea-a04f6ae711c3",
+						"exec": [
+							"pm.test(\"Status code is 0\", function () {",
+							"    pm.response.to.have.status(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer "
+					},
+					{
+						"key": "Accept",
+						"value": "aplication/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin@dredward.site\",\r\n    \"password\": \"6C91by9zruEwTNsT\"\r\n}"
+				},
+				"url": {
+					"raw": "http://uat-movies.dredward.site/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"uat-movies",
+						"dredward",
+						"site"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /api/auth/logout ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "92a054e2-8738-4d92-acec-1c2c75318f23",
+						"exec": [
+							"pm.test(\"Status code is 0\", function () {",
+							"    pm.response.to.have.status(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTA0NjJmNzdmN2Y1YzUwZjIyZDViOTA3OWEyNDRkODEzNjFjYTE2OTI0MmI2YjZlYzkzYzEzYjU5NGZhNjM0YzlmYmM1Zjc5NTI4MTY5YmIiLCJpYXQiOjE1OTc2NDc5NDgsIm5iZiI6MTU5NzY0Nzk0OCwiZXhwIjoxNjI5MTgzOTQ4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.H8EDBREM1NAxa0IMqdD2XUochFtnLO2txOfzNDp71_pgolgIHQWCTWt8sFsLRNq5cl4Y-OV6RKm1xxIAvMrQ9FCrz_7R2afxXdXfr-MXLTltSCdNOWLuZu4ZEypgrG3_uuUiYtgXL-lZHDDJTftk8k6yBVx4LJfGaUe2Qozfg2zdfJWi15GQmgp0JCmftsWYX4vg56E-opjffjernS_HmN_RW3eOpXF3BFy8EGMfo_5nAluiQ9mM4pyJfvF3omqhD3myjcNJLtEgSLsWmyX7kuj7u0fXqCfzJU5DYtrwWzLGfIVVWYBnEE7IulBBoTEB0PZEJfOPYTuYkhjV-GP14UJXc0iRHNg5NtU19Uas0arhY8YdCbyRAfxSzpuHLqdbYxt-GZOdarR--Lhhr9QU5wcd4spa-JmZMqb0qlmr9Jweilv2ZcCHHygcWmNW5EE_qAESAQGjQEDO35dfbV_nDTY2FS7zt8jW3QwASszwyu9UUl9u1IOjW5_iLVmOdm8OJTpTT-fQZyEtWhof1qddr4MZLkxia1lGXJeQcb-sej47brzSxH4ERhg9rbK8Xztfgay0Ntq8Qr3waAJJX-eCjKe4XdbWn41OXDcxqUP7C15aw8Jyr1ZQIsNW_E31EnnCg_cDueV3BE5PcCdxO2WhRXLZ23ZmL5ZrZRBvzaY4tKo"
+					},
+					{
+						"key": "Accept",
+						"value": "aplication/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://uat-movies.dredward.site/api/auth/logout",
+					"protocol": "http",
+					"host": [
+						"uat-movies",
+						"dredward",
+						"site"
+					],
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /api/turns ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1911ed8-bf04-43c0-8f2e-fecd2345bba1",
+						"exec": [
+							"pm.test(\"Status code is 0\", function () {",
+							"    pm.response.to.have.status(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNGIxN2IzNDhlZWE4NmVkYTg4ZTNjZGFhYTJmNzI4NDNiYjE2OTJkNmE5YWFmYjE4NTk4OGNiNTBhNjJmM2FkYjc5ZjM1Njc3ZGUxOThlYzUiLCJpYXQiOjE1OTc2NDc1MzgsIm5iZiI6MTU5NzY0NzUzOCwiZXhwIjoxNjI5MTgzNTM4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.OY22p8h2ckABsAE_4FJbXHfnN50L0MZ_RbhwFk0Ij7qFTcnXdj3GIAQunKTmrvOH8VoXoqsDC9tA4CV3gv2FWM_qEmkiqcoIs0X6YLI4fKhzfDu3WmG7_wJ3GOXQDMsttmHD5Z65kI-GUhwOOzgq_fQDatO_ZN-9g9Ox7Y5eUB4YVorBkgBWGwhcI8C_n_PZZH_tKLUh7mS67KHAvIRWWg_Bq9KqdWYbzF2T_gLUXeR2Vn_WejtfFtwhaO4Br53o2fnxKhxGXpQHTVnB-xYTpHfVgh56-_h2bisVpdWUhb69FQ76MoUXNhmbjKifeQZ51kzZmvZYLfnyZd15YeSveL7yOB4rEEq00BLOB0dgnbN_uyGxe9bwtx7vGgElfh-z3ScGUyiVgBrU-JmAmqdlK2PubEVqVdLtTovoWQVFsVfR1uupC1TlCI619VDRB_ibvqvyX3M7Fs4i9efJxs-RSXNZ9gE5jw453NgdiKIGhwnXJFEYWdLAjSYfeqDvkTuZZm15uOrXeoRiQoFIiM8f8H86U9SMXupnP0bQ4AOCg3x6J9fJegF_NozP-4m72b9UaSSA9AKgwFVLw-RnTuGBDvF4dW4rGd_bdWgcYjTtLk0beyTvsJt6u2W7_hc9r3Z0xqu6_47mFI4jnPNX46dV6g0qjlMsT2cYifja1MerAvM"
+					},
+					{
+						"key": "Accept",
+						"value": "aplication/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"time\": \"14:04:50\",\r\n    \"active\": true\r\n}"
+				},
+				"url": {
+					"raw": "http://uat-movies.dredward.site/api/turns",
+					"protocol": "http",
+					"host": [
+						"uat-movies",
+						"dredward",
+						"site"
+					],
+					"path": [
+						"api",
+						"turns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/movies ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bfd8af69-126d-4d35-b632-3e8c0a5e429f",
+						"exec": [
+							"pm.test(\"Status code is 0\", function () {",
+							"    pm.response.to.have.status(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNGIxN2IzNDhlZWE4NmVkYTg4ZTNjZGFhYTJmNzI4NDNiYjE2OTJkNmE5YWFmYjE4NTk4OGNiNTBhNjJmM2FkYjc5ZjM1Njc3ZGUxOThlYzUiLCJpYXQiOjE1OTc2NDc1MzgsIm5iZiI6MTU5NzY0NzUzOCwiZXhwIjoxNjI5MTgzNTM4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.OY22p8h2ckABsAE_4FJbXHfnN50L0MZ_RbhwFk0Ij7qFTcnXdj3GIAQunKTmrvOH8VoXoqsDC9tA4CV3gv2FWM_qEmkiqcoIs0X6YLI4fKhzfDu3WmG7_wJ3GOXQDMsttmHD5Z65kI-GUhwOOzgq_fQDatO_ZN-9g9Ox7Y5eUB4YVorBkgBWGwhcI8C_n_PZZH_tKLUh7mS67KHAvIRWWg_Bq9KqdWYbzF2T_gLUXeR2Vn_WejtfFtwhaO4Br53o2fnxKhxGXpQHTVnB-xYTpHfVgh56-_h2bisVpdWUhb69FQ76MoUXNhmbjKifeQZ51kzZmvZYLfnyZd15YeSveL7yOB4rEEq00BLOB0dgnbN_uyGxe9bwtx7vGgElfh-z3ScGUyiVgBrU-JmAmqdlK2PubEVqVdLtTovoWQVFsVfR1uupC1TlCI619VDRB_ibvqvyX3M7Fs4i9efJxs-RSXNZ9gE5jw453NgdiKIGhwnXJFEYWdLAjSYfeqDvkTuZZm15uOrXeoRiQoFIiM8f8H86U9SMXupnP0bQ4AOCg3x6J9fJegF_NozP-4m72b9UaSSA9AKgwFVLw-RnTuGBDvF4dW4rGd_bdWgcYjTtLk0beyTvsJt6u2W7_hc9r3Z0xqu6_47mFI4jnPNX46dV6g0qjlMsT2cYifja1MerAvM"
+					},
+					{
+						"key": "Accept",
+						"value": "aplication/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://uat-movies.dredward.site/api/movies",
+					"protocol": "http",
+					"host": [
+						"uat-movies",
+						"dredward",
+						"site"
+					],
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/turns ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4b3ad8b-365e-4e26-8bce-0c18b78f6751",
+						"exec": [
+							"pm.test(\"Status code is 0\", function () {",
+							"    pm.response.to.have.status(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTBjNmU1MzY2MDA0YzJiN2JiNzdlYzBlNWMzNjZmZjMyMWViY2M0ZDk5Y2E3NjJhMDEwMWRhYzliZmUyNTQ4ZDYxMzZlNzBkOGJhZTkzNDAiLCJpYXQiOjE1OTc2NDQ3MTgsIm5iZiI6MTU5NzY0NDcxOCwiZXhwIjoxNjI5MTgwNzE4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.jCOS45njLqsB-WBiCRzQgdOHGR4XmhjBW3UOGXZrqy_5SxgTkyNIvc9WRK4Fpes1mMqdepNOPsEK5n8MSUtkFp2pGA8YIPpthIomM2nvvW152ZYABtgtW3UVnDpY_qq2yv079K_1o1-9YNHsgGhYOU3B4p6PonyrEzQ_gyRAMR7y3acJ6EqEEBgvKSkMYh4FZM44GS175aaQfmvlUkPqRXJsHE5_RumWBU_KevonsTwqqGjR8X7tYwq_0Zh-Pry4eGgzVYrtuoTglRGMf64adsENQzdoePjgkaLo4OcwgqDdxnvWpXut4Aw2BGGP4KEeDPfkwr5ZHXikfc-w7Ps878RTFiOm1zIgT2sbdfM0N03Vb-ozbr0TFPk2nkmPN2bwzHWWNnBI4Mb5SQDwnbfSpdfZQRRJNoJDg6Iba7KUyVzpbeZUKzvJaS_KushmV3OL0XNGrq4J1VY1ujIVHyflv-q6hZe3zCbXJV4UuV0d-glLpZF3b6nA166NZaWZL74Mb2nNhuu0d9vzKvabmGrm-yUk84SOioBYumcpfT_aLwDdJ1hwlnz4bOutfblh4YkRR6fOZY-2fP4VPnEWDvQhH-tbVc__qW1zB4erniUstur5PTfSjfzXzsMKJfiDSnDFAI_kkUGZVOXM8OTWz8mdKqJGgfo2QcqDxoEr3DH7cp8"
+					},
+					{
+						"key": "Accept",
+						"value": "aplication/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://uat-movies.dredward.site/api/turns",
+					"protocol": "http",
+					"host": [
+						"uat-movies",
+						"dredward",
+						"site"
+					],
+					"path": [
+						"api",
+						"turns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /api/turns/1 ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ee083616-3264-42e8-aca4-9b136fe261fc",
+						"exec": [
+							"pm.test(\"Status code is 0\", function () {",
+							"    pm.response.to.have.status(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTBjNmU1MzY2MDA0YzJiN2JiNzdlYzBlNWMzNjZmZjMyMWViY2M0ZDk5Y2E3NjJhMDEwMWRhYzliZmUyNTQ4ZDYxMzZlNzBkOGJhZTkzNDAiLCJpYXQiOjE1OTc2NDQ3MTgsIm5iZiI6MTU5NzY0NDcxOCwiZXhwIjoxNjI5MTgwNzE4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.jCOS45njLqsB-WBiCRzQgdOHGR4XmhjBW3UOGXZrqy_5SxgTkyNIvc9WRK4Fpes1mMqdepNOPsEK5n8MSUtkFp2pGA8YIPpthIomM2nvvW152ZYABtgtW3UVnDpY_qq2yv079K_1o1-9YNHsgGhYOU3B4p6PonyrEzQ_gyRAMR7y3acJ6EqEEBgvKSkMYh4FZM44GS175aaQfmvlUkPqRXJsHE5_RumWBU_KevonsTwqqGjR8X7tYwq_0Zh-Pry4eGgzVYrtuoTglRGMf64adsENQzdoePjgkaLo4OcwgqDdxnvWpXut4Aw2BGGP4KEeDPfkwr5ZHXikfc-w7Ps878RTFiOm1zIgT2sbdfM0N03Vb-ozbr0TFPk2nkmPN2bwzHWWNnBI4Mb5SQDwnbfSpdfZQRRJNoJDg6Iba7KUyVzpbeZUKzvJaS_KushmV3OL0XNGrq4J1VY1ujIVHyflv-q6hZe3zCbXJV4UuV0d-glLpZF3b6nA166NZaWZL74Mb2nNhuu0d9vzKvabmGrm-yUk84SOioBYumcpfT_aLwDdJ1hwlnz4bOutfblh4YkRR6fOZY-2fP4VPnEWDvQhH-tbVc__qW1zB4erniUstur5PTfSjfzXzsMKJfiDSnDFAI_kkUGZVOXM8OTWz8mdKqJGgfo2QcqDxoEr3DH7cp8"
+					},
+					{
+						"key": "Accept",
+						"value": "aplication/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"time\": \"22:04:50\",\r\n    \"active\": true\r\n}"
+				},
+				"url": {
+					"raw": "http://uat-movies.dredward.site/api/turns/1",
+					"protocol": "http",
+					"host": [
+						"uat-movies",
+						"dredward",
+						"site"
+					],
+					"path": [
+						"api",
+						"turns",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /api/movies/3 ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c77bb54c-733a-4ab6-a1f1-f3d7c2bf4abb",
+						"exec": [
+							"pm.test(\"Status code is 0\", function () {",
+							"    pm.response.to.have.status(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTBjNmU1MzY2MDA0YzJiN2JiNzdlYzBlNWMzNjZmZjMyMWViY2M0ZDk5Y2E3NjJhMDEwMWRhYzliZmUyNTQ4ZDYxMzZlNzBkOGJhZTkzNDAiLCJpYXQiOjE1OTc2NDQ3MTgsIm5iZiI6MTU5NzY0NDcxOCwiZXhwIjoxNjI5MTgwNzE4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.jCOS45njLqsB-WBiCRzQgdOHGR4XmhjBW3UOGXZrqy_5SxgTkyNIvc9WRK4Fpes1mMqdepNOPsEK5n8MSUtkFp2pGA8YIPpthIomM2nvvW152ZYABtgtW3UVnDpY_qq2yv079K_1o1-9YNHsgGhYOU3B4p6PonyrEzQ_gyRAMR7y3acJ6EqEEBgvKSkMYh4FZM44GS175aaQfmvlUkPqRXJsHE5_RumWBU_KevonsTwqqGjR8X7tYwq_0Zh-Pry4eGgzVYrtuoTglRGMf64adsENQzdoePjgkaLo4OcwgqDdxnvWpXut4Aw2BGGP4KEeDPfkwr5ZHXikfc-w7Ps878RTFiOm1zIgT2sbdfM0N03Vb-ozbr0TFPk2nkmPN2bwzHWWNnBI4Mb5SQDwnbfSpdfZQRRJNoJDg6Iba7KUyVzpbeZUKzvJaS_KushmV3OL0XNGrq4J1VY1ujIVHyflv-q6hZe3zCbXJV4UuV0d-glLpZF3b6nA166NZaWZL74Mb2nNhuu0d9vzKvabmGrm-yUk84SOioBYumcpfT_aLwDdJ1hwlnz4bOutfblh4YkRR6fOZY-2fP4VPnEWDvQhH-tbVc__qW1zB4erniUstur5PTfSjfzXzsMKJfiDSnDFAI_kkUGZVOXM8OTWz8mdKqJGgfo2QcqDxoEr3DH7cp8"
+					},
+					{
+						"key": "Accept",
+						"value": "aplication/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "EndGame",
+							"type": "text"
+						},
+						{
+							"key": "publicationDate",
+							"value": "2019-07-09",
+							"type": "text"
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/F:/DescargasRaven/endgame.jpg"
+						},
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://uat-movies.dredward.site/api/movies/3",
+					"protocol": "http",
+					"host": [
+						"uat-movies",
+						"dredward",
+						"site"
+					],
+					"path": [
+						"api",
+						"movies",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH /api/movies/activator/1 ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "42d7c007-62ce-424a-9540-c5ebbfa63955",
+						"exec": [
+							"pm.test(\"Status code is 0\", function () {",
+							"    pm.response.to.have.status(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTBjNmU1MzY2MDA0YzJiN2JiNzdlYzBlNWMzNjZmZjMyMWViY2M0ZDk5Y2E3NjJhMDEwMWRhYzliZmUyNTQ4ZDYxMzZlNzBkOGJhZTkzNDAiLCJpYXQiOjE1OTc2NDQ3MTgsIm5iZiI6MTU5NzY0NDcxOCwiZXhwIjoxNjI5MTgwNzE4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.jCOS45njLqsB-WBiCRzQgdOHGR4XmhjBW3UOGXZrqy_5SxgTkyNIvc9WRK4Fpes1mMqdepNOPsEK5n8MSUtkFp2pGA8YIPpthIomM2nvvW152ZYABtgtW3UVnDpY_qq2yv079K_1o1-9YNHsgGhYOU3B4p6PonyrEzQ_gyRAMR7y3acJ6EqEEBgvKSkMYh4FZM44GS175aaQfmvlUkPqRXJsHE5_RumWBU_KevonsTwqqGjR8X7tYwq_0Zh-Pry4eGgzVYrtuoTglRGMf64adsENQzdoePjgkaLo4OcwgqDdxnvWpXut4Aw2BGGP4KEeDPfkwr5ZHXikfc-w7Ps878RTFiOm1zIgT2sbdfM0N03Vb-ozbr0TFPk2nkmPN2bwzHWWNnBI4Mb5SQDwnbfSpdfZQRRJNoJDg6Iba7KUyVzpbeZUKzvJaS_KushmV3OL0XNGrq4J1VY1ujIVHyflv-q6hZe3zCbXJV4UuV0d-glLpZF3b6nA166NZaWZL74Mb2nNhuu0d9vzKvabmGrm-yUk84SOioBYumcpfT_aLwDdJ1hwlnz4bOutfblh4YkRR6fOZY-2fP4VPnEWDvQhH-tbVc__qW1zB4erniUstur5PTfSjfzXzsMKJfiDSnDFAI_kkUGZVOXM8OTWz8mdKqJGgfo2QcqDxoEr3DH7cp8"
+					},
+					{
+						"key": "Accept",
+						"value": "aplication/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"active\": true\r\n}"
+				},
+				"url": {
+					"raw": "http://uat-movies.dredward.site/api/movies/activator/1",
+					"protocol": "http",
+					"host": [
+						"uat-movies",
+						"dredward",
+						"site"
+					],
+					"path": [
+						"api",
+						"movies",
+						"activator",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH /api/turns/activator/1 ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6766fa8a-f779-4cff-828c-ac2d78ea1b66",
+						"exec": [
+							"pm.test(\"Status code is 0\", function () {",
+							"    pm.response.to.have.status(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTBjNmU1MzY2MDA0YzJiN2JiNzdlYzBlNWMzNjZmZjMyMWViY2M0ZDk5Y2E3NjJhMDEwMWRhYzliZmUyNTQ4ZDYxMzZlNzBkOGJhZTkzNDAiLCJpYXQiOjE1OTc2NDQ3MTgsIm5iZiI6MTU5NzY0NDcxOCwiZXhwIjoxNjI5MTgwNzE4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.jCOS45njLqsB-WBiCRzQgdOHGR4XmhjBW3UOGXZrqy_5SxgTkyNIvc9WRK4Fpes1mMqdepNOPsEK5n8MSUtkFp2pGA8YIPpthIomM2nvvW152ZYABtgtW3UVnDpY_qq2yv079K_1o1-9YNHsgGhYOU3B4p6PonyrEzQ_gyRAMR7y3acJ6EqEEBgvKSkMYh4FZM44GS175aaQfmvlUkPqRXJsHE5_RumWBU_KevonsTwqqGjR8X7tYwq_0Zh-Pry4eGgzVYrtuoTglRGMf64adsENQzdoePjgkaLo4OcwgqDdxnvWpXut4Aw2BGGP4KEeDPfkwr5ZHXikfc-w7Ps878RTFiOm1zIgT2sbdfM0N03Vb-ozbr0TFPk2nkmPN2bwzHWWNnBI4Mb5SQDwnbfSpdfZQRRJNoJDg6Iba7KUyVzpbeZUKzvJaS_KushmV3OL0XNGrq4J1VY1ujIVHyflv-q6hZe3zCbXJV4UuV0d-glLpZF3b6nA166NZaWZL74Mb2nNhuu0d9vzKvabmGrm-yUk84SOioBYumcpfT_aLwDdJ1hwlnz4bOutfblh4YkRR6fOZY-2fP4VPnEWDvQhH-tbVc__qW1zB4erniUstur5PTfSjfzXzsMKJfiDSnDFAI_kkUGZVOXM8OTWz8mdKqJGgfo2QcqDxoEr3DH7cp8"
+					},
+					{
+						"key": "Accept",
+						"value": "aplication/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"active\": true\r\n}"
+				},
+				"url": {
+					"raw": "http://uat-movies.dredward.site/api/turns/activator/1",
+					"protocol": "http",
+					"host": [
+						"uat-movies",
+						"dredward",
+						"site"
+					],
+					"path": [
+						"api",
+						"turns",
+						"activator",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH /api/movies/turns/1 ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d87dff0d-1431-4dd9-a202-9432c415c72e",
+						"exec": [
+							"pm.test(\"Status code is 0\", function () {",
+							"    pm.response.to.have.status(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTBjNmU1MzY2MDA0YzJiN2JiNzdlYzBlNWMzNjZmZjMyMWViY2M0ZDk5Y2E3NjJhMDEwMWRhYzliZmUyNTQ4ZDYxMzZlNzBkOGJhZTkzNDAiLCJpYXQiOjE1OTc2NDQ3MTgsIm5iZiI6MTU5NzY0NDcxOCwiZXhwIjoxNjI5MTgwNzE4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.jCOS45njLqsB-WBiCRzQgdOHGR4XmhjBW3UOGXZrqy_5SxgTkyNIvc9WRK4Fpes1mMqdepNOPsEK5n8MSUtkFp2pGA8YIPpthIomM2nvvW152ZYABtgtW3UVnDpY_qq2yv079K_1o1-9YNHsgGhYOU3B4p6PonyrEzQ_gyRAMR7y3acJ6EqEEBgvKSkMYh4FZM44GS175aaQfmvlUkPqRXJsHE5_RumWBU_KevonsTwqqGjR8X7tYwq_0Zh-Pry4eGgzVYrtuoTglRGMf64adsENQzdoePjgkaLo4OcwgqDdxnvWpXut4Aw2BGGP4KEeDPfkwr5ZHXikfc-w7Ps878RTFiOm1zIgT2sbdfM0N03Vb-ozbr0TFPk2nkmPN2bwzHWWNnBI4Mb5SQDwnbfSpdfZQRRJNoJDg6Iba7KUyVzpbeZUKzvJaS_KushmV3OL0XNGrq4J1VY1ujIVHyflv-q6hZe3zCbXJV4UuV0d-glLpZF3b6nA166NZaWZL74Mb2nNhuu0d9vzKvabmGrm-yUk84SOioBYumcpfT_aLwDdJ1hwlnz4bOutfblh4YkRR6fOZY-2fP4VPnEWDvQhH-tbVc__qW1zB4erniUstur5PTfSjfzXzsMKJfiDSnDFAI_kkUGZVOXM8OTWz8mdKqJGgfo2QcqDxoEr3DH7cp8"
+					},
+					{
+						"key": "Accept",
+						"value": "aplication/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"turns_id\": [1,3]\r\n}"
+				},
+				"url": {
+					"raw": "http://uat-movies.dredward.site/api/movies/turns/3",
+					"protocol": "http",
+					"host": [
+						"uat-movies",
+						"dredward",
+						"site"
+					],
+					"path": [
+						"api",
+						"movies",
+						"turns",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /api/movies/2 ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "759d0773-48b4-483f-a420-f8ae9e73bad3",
+						"exec": [
+							"pm.test(\"Status code is 0\", function () {",
+							"    pm.response.to.have.status(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTBjNmU1MzY2MDA0YzJiN2JiNzdlYzBlNWMzNjZmZjMyMWViY2M0ZDk5Y2E3NjJhMDEwMWRhYzliZmUyNTQ4ZDYxMzZlNzBkOGJhZTkzNDAiLCJpYXQiOjE1OTc2NDQ3MTgsIm5iZiI6MTU5NzY0NDcxOCwiZXhwIjoxNjI5MTgwNzE4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.jCOS45njLqsB-WBiCRzQgdOHGR4XmhjBW3UOGXZrqy_5SxgTkyNIvc9WRK4Fpes1mMqdepNOPsEK5n8MSUtkFp2pGA8YIPpthIomM2nvvW152ZYABtgtW3UVnDpY_qq2yv079K_1o1-9YNHsgGhYOU3B4p6PonyrEzQ_gyRAMR7y3acJ6EqEEBgvKSkMYh4FZM44GS175aaQfmvlUkPqRXJsHE5_RumWBU_KevonsTwqqGjR8X7tYwq_0Zh-Pry4eGgzVYrtuoTglRGMf64adsENQzdoePjgkaLo4OcwgqDdxnvWpXut4Aw2BGGP4KEeDPfkwr5ZHXikfc-w7Ps878RTFiOm1zIgT2sbdfM0N03Vb-ozbr0TFPk2nkmPN2bwzHWWNnBI4Mb5SQDwnbfSpdfZQRRJNoJDg6Iba7KUyVzpbeZUKzvJaS_KushmV3OL0XNGrq4J1VY1ujIVHyflv-q6hZe3zCbXJV4UuV0d-glLpZF3b6nA166NZaWZL74Mb2nNhuu0d9vzKvabmGrm-yUk84SOioBYumcpfT_aLwDdJ1hwlnz4bOutfblh4YkRR6fOZY-2fP4VPnEWDvQhH-tbVc__qW1zB4erniUstur5PTfSjfzXzsMKJfiDSnDFAI_kkUGZVOXM8OTWz8mdKqJGgfo2QcqDxoEr3DH7cp8"
+					},
+					{
+						"key": "Accept",
+						"value": "aplication/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://uat-movies.dredward.site/api/movies/2",
+					"protocol": "http",
+					"host": [
+						"uat-movies",
+						"dredward",
+						"site"
+					],
+					"path": [
+						"api",
+						"movies",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /api/turns/2 ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "414dad38-4cbd-4dcc-93d5-b61b0d56b4da",
+						"exec": [
+							"pm.test(\"Status code is 0\", function () {",
+							"    pm.response.to.have.status(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTBjNmU1MzY2MDA0YzJiN2JiNzdlYzBlNWMzNjZmZjMyMWViY2M0ZDk5Y2E3NjJhMDEwMWRhYzliZmUyNTQ4ZDYxMzZlNzBkOGJhZTkzNDAiLCJpYXQiOjE1OTc2NDQ3MTgsIm5iZiI6MTU5NzY0NDcxOCwiZXhwIjoxNjI5MTgwNzE4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.jCOS45njLqsB-WBiCRzQgdOHGR4XmhjBW3UOGXZrqy_5SxgTkyNIvc9WRK4Fpes1mMqdepNOPsEK5n8MSUtkFp2pGA8YIPpthIomM2nvvW152ZYABtgtW3UVnDpY_qq2yv079K_1o1-9YNHsgGhYOU3B4p6PonyrEzQ_gyRAMR7y3acJ6EqEEBgvKSkMYh4FZM44GS175aaQfmvlUkPqRXJsHE5_RumWBU_KevonsTwqqGjR8X7tYwq_0Zh-Pry4eGgzVYrtuoTglRGMf64adsENQzdoePjgkaLo4OcwgqDdxnvWpXut4Aw2BGGP4KEeDPfkwr5ZHXikfc-w7Ps878RTFiOm1zIgT2sbdfM0N03Vb-ozbr0TFPk2nkmPN2bwzHWWNnBI4Mb5SQDwnbfSpdfZQRRJNoJDg6Iba7KUyVzpbeZUKzvJaS_KushmV3OL0XNGrq4J1VY1ujIVHyflv-q6hZe3zCbXJV4UuV0d-glLpZF3b6nA166NZaWZL74Mb2nNhuu0d9vzKvabmGrm-yUk84SOioBYumcpfT_aLwDdJ1hwlnz4bOutfblh4YkRR6fOZY-2fP4VPnEWDvQhH-tbVc__qW1zB4erniUstur5PTfSjfzXzsMKJfiDSnDFAI_kkUGZVOXM8OTWz8mdKqJGgfo2QcqDxoEr3DH7cp8"
+					},
+					{
+						"key": "Accept",
+						"value": "aplication/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://uat-movies.dredward.site/api/turns/3",
+					"protocol": "http",
+					"host": [
+						"uat-movies",
+						"dredward",
+						"site"
+					],
+					"path": [
+						"api",
+						"turns",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
