@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  dev:
+  test:
     working_directory: /var/www/html/dev-docker
     docker:
       # Specify the version you desire here
