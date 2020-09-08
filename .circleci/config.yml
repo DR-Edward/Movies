@@ -66,7 +66,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "${PROD_SERVER_SSH_FINGERPRINT}"
+            - "1f:12:9b:d3:bd:bf:f3:64:ed:f3:8f:11:71:44:c1:e7"
       - run:
           name: Enable Maintenance Mode
           command: |
