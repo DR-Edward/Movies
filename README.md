@@ -1,5 +1,5 @@
 
-## Movies Manager **[ver](http://movies.dredward.site)**
+## Movies Manager **[UAT Demo](http://uat-movies.dredward.site)** **[DEV Demo](http://dev-movies.dredward.site)**
 
 ## Status: 
 * Frontend: En desarrollo
@@ -26,7 +26,15 @@
 * Contraseña: 6C91by9zruEwTNsT
 
 ## Api
+
+### DEV - Entorno para el testeo en el desarrollo (ejecuta seeders y otras cosas)
 Se puede obtener una colección completa con todos los endpoints por medio de los siguientes archivos:
-* **Insomnia (JSON)** - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/Insomnia_2020-08-17.json)**
-* Insomnia (HAR) - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/Insomnia_2020-08-17.har)**
-* Postman (JSON) - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/Movies.postman_collection.json)**
+* **Insomnia (JSON)** - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/dev/Insomnia_2020-08-17.json)**
+* Insomnia (HAR) - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/dev/Insomnia_2020-08-17.har)**
+* Postman (JSON) - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/dev/Movies.postman_collection.json)**
+
+### UAT - User Acceptance Testing (Ejecuta seeders específicos)
+Se puede obtener una colección completa con todos los endpoints por medio de los siguientes archivos:
+* **Insomnia (JSON)** - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/uat/Insomnia_2020-08-17.json)**
+* Insomnia (HAR) - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/uat/Insomnia_2020-08-17.har)**
+* Postman (JSON) - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/uat/Movies.postman_collection.json)**
