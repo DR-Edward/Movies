@@ -70,7 +70,7 @@ jobs:
       - run:
           name: Enable Maintenance Mode
           command: |
-            ssh -v ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/dev && php artisan down --message=\"Update in progress\" --retry=30"
+            ssh -vvv ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/dev && php artisan down --message=\"Update in progress\" --retry=30"
       - run:
           name: Checkout Develop
           command: |
