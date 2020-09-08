@@ -1,7 +1,13 @@
 
-## Movies Manager **[ver](http://dev-movies.dredward.site)**
+## Movies Manager **[ver](http://movies.dredward.site)**
 
-## Status: Frontend en desarrollo
+## Status: 
+* Frontend: En desarrollo
+* Backend: Terminado
+* API: Terminado
+* Integración continua: Terminado
+* Pruebas de integración: Pendiente
+* Pruebas unitarias: Pendiente
 
 ## Instalación rápida
 
@@ -21,6 +27,6 @@
 
 ##Api
 Se puede obtener una colección completa con todos los endpoints por medio de los siguientes archivos:
-* Insomnia (JSON) - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/Insomnia_2020-08-17.json)**
+* **Insomnia (JSON)** - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/Insomnia_2020-08-17.json)**
 * Insomnia (HAR) - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/Insomnia_2020-08-17.har)**
 * Postman (JSON) - **[file](https://github.com/DR-Edward/Movies/blob/master/Importation/Movies.postman_collection.json)**
