@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Turn;
-use App\Helpers\Turn\Logic;
 
 class TurnController extends Controller
 {
@@ -85,7 +84,7 @@ class TurnController extends Controller
      */
     public function destroy($id)
     {
-        $response = Logic::destroy($id);
+        $response = Turn::destroy($id);
         return response()->json($response, $response['code']);
     }
     
@@ -97,7 +96,7 @@ class TurnController extends Controller
      */
     public function activator(Request $request, $id)
     {
-        $response = Logic::activator($request, $id);
+        $response = Turn::update_default($request, Turn::rules_activator(), $id);
         return response()->json($response, $response['code']);
     }
 }
