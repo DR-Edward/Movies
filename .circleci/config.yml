@@ -92,17 +92,17 @@ jobs:
           command: |
             ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && npm run dev"
       - run:
-          name: Cache clear
+          name: Building Project (build:development:refresh)
           command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && sudo php artisan cache:clear"
-      - run:
-          name: Migrating and Seeding
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && php artisan migrate:refresh --seed"
-      - run:
-         name: Passport Encryption Keys Generation
-         command: |
-           ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && php artisan passport:install --force"
+            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && sudo php artisan build:development:refresh"
+      # - run:
+      #     name: Migrating and Seeding
+      #     command: |
+      #       ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && php artisan migrate:refresh --seed"
+      # - run:
+      #    name: Passport Encryption Keys Generation
+      #    command: |
+      #      ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && php artisan passport:install --force"
       - run:
           name: Display an Inspiring Quote
           command: |
