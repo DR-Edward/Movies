@@ -48,6 +48,18 @@ class Turn extends Model
     ];
 
     /**
+     * The validation rules for activator field.
+     *
+     * @var array
+     */
+    public static function rules_activator() {
+        return [
+            'active' => 'required|boolean',
+            'time' => [new NotPresent],
+        ];
+    }
+
+    /**
      * The movies that belong to the turn.
      */
     public function movies()
