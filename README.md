@@ -1,5 +1,5 @@
 
-## Movies Manager **[UAT Demo](http://uat-movies.dredward.site)** **[DEV Demo](http://dev-movies.dredward.site)**
+## Movies Manager **[UAT Demo](http://uat-movies.dredward.site)** / **[DEV Demo](http://dev-movies.dredward.site)**
 
 ## Status: 
 * Frontend: En desarrollo
