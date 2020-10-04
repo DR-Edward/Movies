@@ -10,11 +10,9 @@ export default class Client {
   constructor() {
     this.axios = customAxios;
     this.printer = function(err) {
-        console.error(err);
-        const errors = err.response.data.errors ? Object.values(err.response.data.errors).flat() : [ "Ocurrió un error inesperado" ];
-        errors.forEach(error => {
-        alertify.error(error);
-      });
+      console.error(err);
+      const errors = Object.values(err.response.data.errors).flat();
+      errors.forEach(error => alertify.error(error));
     }
   }
 
@@ -51,14 +49,38 @@ export default class Client {
     return this.index(route)
   }
 
-    /**
-    * store information
+  /**
+    * update all element information
     * @author Edward Delgado
     * @param String route
     * @param Object config
   */      
-  update(route, config){
-    return this.axios.put(route, config)
+  update(route, data){
+    return this.axios.put(route, data)
+    .then(res => res)
+    .catch(err => this.printer(err));
+  }
+
+  /**
+    * update one element field
+    * @author Edward Delgado
+    * @param String route
+    * @param Object config
+  */      
+  patch(route, data){
+    return this.axios.patch(route, data)
+    .then(res => res)
+    .catch(err => this.printer(err));
+  }
+
+  /**
+    * delete information
+    * @author Edward Delgado
+    * @param String route
+    * @param Object config
+  */      
+  delete(route, config){
+    return this.axios.delete(route, config)
     .then(res => res)
     .catch(err => this.printer(err));
   }

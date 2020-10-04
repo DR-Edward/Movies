@@ -11,7 +11,8 @@ const customAxios = axios.create({
 customAxios.interceptors.response.use((response) => {
   return response;
 }, error => {
-  // asegurarnos que siempre va a tener un message_text
+  // asegurarnos que siempre va a un elemento en errors
+  !error.response || !!!error.response.data.errors && (error.response.data.errors = [ "Ocurrió un error inesperado" ]);
   return Promise.reject(error);
 });
 

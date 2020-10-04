@@ -20,19 +20,19 @@
               <span>Editar</span>
             </v-tooltip>
             <v-tooltip bottom v-if="props.item.active">
-              <v-btn icon flat small slot="activator" color="purple darken-4" @click="1+1">
+              <v-btn icon flat small slot="activator" color="purple darken-4" @click="updateFieldData(props.item.id, false)">
                 <v-icon>fa-lock</v-icon>
               </v-btn>
               <span>Desactivar</span>
             </v-tooltip>
             <v-tooltip bottom v-else>
-              <v-btn icon flat small slot="activator" color="purple accent-4" @click="1+1">
+              <v-btn icon flat small slot="activator" color="purple accent-4" @click="updateFieldData(props.item.id, true)">
                 <v-icon>fa-unlock</v-icon>
               </v-btn>
               <span>Activar</span>
             </v-tooltip>
             <v-tooltip bottom>
-              <v-btn icon flat small slot="activator" color="error" @click="1+1">
+              <v-btn icon flat small slot="activator" color="error" @click="deleteData(props.item.id)">
                 <v-icon>delete</v-icon>
               </v-btn>
               <span>Eliminar</span>
@@ -93,10 +93,24 @@ export default {
   },
   methods: {
     getData: async function (page = this.turns.current_page || 1) {
-      let response = await client.index(`/turns`, {
+      const response = await client.index(`/turns`, {
         params: { page, },
       });
       response && (this.turns = response.data);
+    },
+    updateFieldData: async function(id, state){
+      const confirmation = await swal.confirmation();
+      if(confirmation){
+        const response = await client.patch(`/turns/activator/${id}`,{ active: state });
+        response && (alertify.success(response.data.message_text)) && (this.getData());
+      }
+    },
+    deleteData: async function(id){
+      const confirmation = await swal.confirmation();
+      if(confirmation){
+        const response = await client.delete(`/turns/${id}`);
+        response && (alertify.success(response.data.message_text)) && (this.getData());
+      }
     },
     openCreateModal: function () {
       this.showCreateModal = true;

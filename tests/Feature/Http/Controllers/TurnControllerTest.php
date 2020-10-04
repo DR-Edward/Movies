@@ -76,24 +76,6 @@ class TurnControllerTest extends TestCase
     }
     
     /**
-     * Test for turns patch update.
-     *
-     * @return void
-     */
-    public function test_patch_update_returns_json_data()
-    {
-        $user = factory(User::class)->create();
-
-        $turn = factory(Turn::class)->create();
-
-        $turn->active = !$turn->active; 
-
-        $response = $this->actingAs($user)->patchJson(route('turns.update', 1), $turn->toArray());
-
-        $response->assertStatus(200);
-    }
-
-    /**
      * Test for turns delete.
      *
      * @return void
