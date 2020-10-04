@@ -63,7 +63,7 @@ trait Crud {
 
         $resource = null;
         $message_type = 'success';
-        $message_text = 'Deleted';
+        $message_text = 'Created successfully';
         $code = 200;
 
         try{
@@ -91,7 +91,7 @@ trait Crud {
      */
     public static function show_default($id) {
         $message_type = 'success';
-        $message_text = 'Deleted';
+        $message_text = 'Found it.';
         $code = 200;
 
         try{
@@ -180,7 +180,7 @@ trait Crud {
 
     /**
      * $relation_name must be a valid relationship
-     * $field_name muyt be a valid request input name
+     * $field_name must be a valid request input name
      * 
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id

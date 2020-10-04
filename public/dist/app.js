@@ -5778,10 +5778,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 3:
                 response = _context.sent;
                 this.vBtnSave.loading = false;
-                response && (this.time = '00:00:00') && (this.active = true);
-                !this.keepStoring && this.closeModal();
 
-              case 7:
+                if (response) {
+                  this.time = '00:00:00';
+                  this.active = true;
+                  alertify.success(response.data.message_text);
+                }
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -5882,6 +5886,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       showCreateModal: false,
+      showUpdateModal: false,
+      elementId: 1,
       turns: {},
       vPaginator: {
         limit: 10
@@ -5905,6 +5911,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   watch: {
     showCreateModal: function showCreateModal(value) {
+      !value && this.getData();
+    },
+    showUpdateModal: function showUpdateModal(value) {
       !value && this.getData();
     }
   },
@@ -5946,10 +5955,169 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     openCreateModal: function openCreateModal() {
       this.showCreateModal = true;
+    },
+    openUpdateModal: function openUpdateModal(id) {
+      this.showUpdateModal = true;
+      this.elementId = id;
     }
   },
   mounted: function mounted() {
     this.getData();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/turns/update.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/turns/update.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      time: "00:00:00",
+      active: true,
+      localShow: false,
+      vBtnSave: {
+        loading: false
+      }
+    };
+  },
+  props: {
+    show: Boolean,
+    id: Number
+  },
+  watch: {
+    show: function show(value) {
+      this.localShow = value;
+      value && this.getData();
+    },
+    localShow: function localShow(value) {
+      this.$emit("update:show", value);
+    }
+  },
+  methods: {
+    getData: function () {
+      var _getData = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var id,
+            response,
+            _response$data$data,
+            time,
+            active,
+            _args = arguments;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                id = _args.length > 0 && _args[0] !== undefined ? _args[0] : this.id || 1;
+                _context.next = 3;
+                return client.show("/turns/".concat(id));
+
+              case 3:
+                response = _context.sent;
+
+                if (response) {
+                  _response$data$data = response.data.data, time = _response$data$data.time, active = _response$data$data.active;
+                  this.time = time;
+                  this.active = active;
+                }
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function getData() {
+        return _getData.apply(this, arguments);
+      }
+
+      return getData;
+    }(),
+    updateData: function () {
+      var _updateData = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                this.vBtnSave.loading = true;
+                _context2.next = 3;
+                return client.update("/turns/".concat(this.id), {
+                  time: this.time,
+                  active: this.active
+                });
+
+              case 3:
+                response = _context2.sent;
+                this.vBtnSave.loading = false;
+                response && alertify.success(response.data.message_text) && this.closeModal();
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function updateData() {
+        return _updateData.apply(this, arguments);
+      }
+
+      return updateData;
+    }(),
+    closeModal: function closeModal() {
+      this.localShow = false;
+    },
+    updateTime: function updateTime(item) {
+      this.time = item;
+    }
   }
 });
 
@@ -43911,7 +44079,9 @@ var render = function() {
                                     },
                                     on: {
                                       click: function($event) {
-                                        1 + 1
+                                        return _vm.openUpdateModal(
+                                          props.item.id
+                                        )
                                       }
                                     },
                                     slot: "activator"
@@ -44046,7 +44216,168 @@ var render = function() {
                 _vm.showCreateModal = $event
               }
             }
+          }),
+          _vm._v(" "),
+          _c("turns-update", {
+            attrs: { show: _vm.showUpdateModal, id: _vm.elementId },
+            on: {
+              "update:show": function($event) {
+                _vm.showUpdateModal = $event
+              },
+              "update:id": function($event) {
+                _vm.elementId = $event
+              }
+            }
           })
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/turns/update.vue?vue&type=template&id=49c541f9&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/turns/update.vue?vue&type=template&id=49c541f9& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "text-xs-center" },
+    [
+      _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "850px", persistent: "" },
+          model: {
+            value: _vm.localShow,
+            callback: function($$v) {
+              _vm.localShow = $$v
+            },
+            expression: "localShow"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c(
+                "v-toolbar",
+                { attrs: { color: "#475660", flat: "" } },
+                [
+                  _c("v-toolbar-title", { staticClass: "white--text" }, [
+                    _vm._v("Actualizar Turno")
+                  ]),
+                  _vm._v(" "),
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        flat: "",
+                        icon: "",
+                        color: "light-green",
+                        dark: ""
+                      },
+                      on: { click: _vm.closeModal }
+                    },
+                    [_c("v-icon", [_vm._v("close")])],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c(
+                    "v-container",
+                    { attrs: { "grid-list-md": "" } },
+                    [
+                      _c(
+                        "v-layout",
+                        { attrs: { wrap: "" } },
+                        [
+                          _c("picker-time", {
+                            attrs: { initialTime: _vm.time },
+                            on: {
+                              selected: _vm.updateTime,
+                              "update:initialTime": function($event) {
+                                _vm.time = $event
+                              },
+                              "update:initial-time": function($event) {
+                                _vm.time = $event
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-switch", {
+                            attrs: {
+                              color: "#475660",
+                              label: "" + (_vm.active ? "Activo" : "Inactivo")
+                            },
+                            model: {
+                              value: _vm.active,
+                              callback: function($$v) {
+                                _vm.active = $$v
+                              },
+                              expression: "active"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-divider"),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        color: "light-green",
+                        flat: "",
+                        loading: _vm.vBtnSave.loading
+                      },
+                      on: { click: _vm.updateData }
+                    },
+                    [_vm._v(" Guardar ")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
         ],
         1
       )
@@ -82266,6 +82597,7 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 
 Vue.component('turns-index', __webpack_require__(/*! ./components/turns/index.vue */ "./resources/assets/js/components/turns/index.vue")["default"]);
 Vue.component('turns-create', __webpack_require__(/*! ./components/turns/create.vue */ "./resources/assets/js/components/turns/create.vue")["default"]);
+Vue.component('turns-update', __webpack_require__(/*! ./components/turns/update.vue */ "./resources/assets/js/components/turns/update.vue")["default"]);
 Vue.component('picker-time', __webpack_require__(/*! ./components/pickerTime.vue */ "./resources/assets/js/components/pickerTime.vue")["default"]);
 Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 /**
@@ -82607,6 +82939,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/turns/update.vue":
+/*!*********************************************************!*\
+  !*** ./resources/assets/js/components/turns/update.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _update_vue_vue_type_template_id_49c541f9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./update.vue?vue&type=template&id=49c541f9& */ "./resources/assets/js/components/turns/update.vue?vue&type=template&id=49c541f9&");
+/* harmony import */ var _update_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./update.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/turns/update.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _update_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _update_vue_vue_type_template_id_49c541f9___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _update_vue_vue_type_template_id_49c541f9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/js/components/turns/update.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/turns/update.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/assets/js/components/turns/update.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_update_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./update.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/turns/update.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_update_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/turns/update.vue?vue&type=template&id=49c541f9&":
+/*!****************************************************************************************!*\
+  !*** ./resources/assets/js/components/turns/update.vue?vue&type=template&id=49c541f9& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_update_vue_vue_type_template_id_49c541f9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./update.vue?vue&type=template&id=49c541f9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/turns/update.vue?vue&type=template&id=49c541f9&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_update_vue_vue_type_template_id_49c541f9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_update_vue_vue_type_template_id_49c541f9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/lib/axios.js":
 /*!******************************************!*\
   !*** ./resources/assets/js/lib/axios.js ***!
@@ -82687,9 +83088,10 @@ var Client = /*#__PURE__*/function () {
 
   _createClass(Client, [{
     key: "index",
-    value: function index(route, config) {
+    value: function index(route) {
       var _this = this;
 
+      var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       return this.axios.get(route, config).then(function (res) {
         return res;
       })["catch"](function (err) {
@@ -82712,6 +83114,35 @@ var Client = /*#__PURE__*/function () {
         return res;
       })["catch"](function (err) {
         return _this2.printer(err);
+      });
+    }
+    /**
+      * get element information
+      * @author Edward Delgado
+      * @param String route
+    */
+
+  }, {
+    key: "show",
+    value: function show(route) {
+      return this.index(route);
+    }
+    /**
+    * store information
+    * @author Edward Delgado
+    * @param String route
+    * @param Object config
+    */
+
+  }, {
+    key: "update",
+    value: function update(route, config) {
+      var _this3 = this;
+
+      return this.axios.put(route, config).then(function (res) {
+        return res;
+      })["catch"](function (err) {
+        return _this3.printer(err);
       });
     }
   }]);

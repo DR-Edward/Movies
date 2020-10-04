@@ -31,6 +31,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 // turn components
 Vue.component('turns-index', require('./components/turns/index.vue').default);
 Vue.component('turns-create', require('./components/turns/create.vue').default);
+Vue.component('turns-update', require('./components/turns/update.vue').default);
 
 Vue.component('picker-time', require('./components/pickerTime.vue').default);
 

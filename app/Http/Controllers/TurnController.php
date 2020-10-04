@@ -49,7 +49,8 @@ class TurnController extends Controller
      */
     public function show($id)
     {
-        //
+        $response = Turn::show_default($id);
+        return response()->json($response, $response['code']);
     }
 
     /**

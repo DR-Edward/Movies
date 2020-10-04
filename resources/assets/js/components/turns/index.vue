@@ -14,7 +14,7 @@
           <td class="text-xs-left"> {{ props.item.active ? 'Activo' : 'Inactivo' }}</td>
           <td class="justify-left layout px-0">
             <v-tooltip bottom>
-              <v-btn icon flat small slot="activator" color="light-green" @click="1+1">
+              <v-btn icon flat small slot="activator" color="light-green" @click="openUpdateModal(props.item.id)">
                 <v-icon>edit</v-icon>
               </v-btn>
               <span>Editar</span>
@@ -47,7 +47,7 @@
     </v-flex>
     <!-- Modal -->
     <turns-create :show.sync="showCreateModal" />
-    <!-- <edit-category-modal :show.sync="showEditModal" :category-id.sync="currentCategoryId"></edit-category-modal> -->
+    <turns-update :show.sync="showUpdateModal" :id.sync="elementId" />
   </v-container>
 </v-layout>
 </template>
@@ -56,6 +56,8 @@
 export default {
   data: () => ({
     showCreateModal: false,
+    showUpdateModal: false,
+    elementId: 1,
     turns: {},
     vPaginator: {
       limit: 10
@@ -85,6 +87,9 @@ export default {
     showCreateModal: function (value) {
       !value && (this.getData());
     },
+    showUpdateModal: function (value) {
+      !value && (this.getData());
+    },
   },
   methods: {
     getData: async function (page = this.turns.current_page || 1) {
@@ -95,6 +100,10 @@ export default {
     },
     openCreateModal: function () {
       this.showCreateModal = true;
+    },
+    openUpdateModal: function (id) {
+      this.showUpdateModal = true;
+      this.elementId = id;
     },
   },
   mounted() {
