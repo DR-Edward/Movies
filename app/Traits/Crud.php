@@ -11,7 +11,7 @@ trait Crud {
      * @return array
      */
     public static function index_default($relationships = []) {
-        $resources = self::with($relationships)->paginate(10);
+        $resources = self::with($relationships)->orderBy('id', 'desc')->paginate(10);
         return $resources;
     }
 

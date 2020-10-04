@@ -20,6 +20,9 @@ try {
  */
 
 window.axios = require('axios');
+import Client from './lib/client';
+window.client = new Client();
+window.alertify = require('alertifyjs');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

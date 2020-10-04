@@ -1,0 +1,104 @@
+<template>
+<v-layout>
+  <v-container>
+    <v-flex xs12>
+      <v-toolbar color="#475660" flat>
+        <v-toolbar-title class="white--text">Turnos</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn class="light-green" @click="openCreateModal" v-if="1+1 ? true : false">Crear</v-btn>
+      </v-toolbar>
+      <v-data-table :headers="vHeaders" disable-initial-sort :items="turns.data || []" hide-actions class="elevation-1">
+        <template slot="items" slot-scope="props">
+          <td > {{props.item.id }}</td>
+          <td class="text-xs-left"> {{ props.item.time }}</td>
+          <td class="text-xs-left"> {{ props.item.active ? 'Activo' : 'Inactivo' }}</td>
+          <td class="justify-left layout px-0">
+            <v-tooltip bottom>
+              <v-btn icon flat small slot="activator" color="light-green" @click="1+1">
+                <v-icon>edit</v-icon>
+              </v-btn>
+              <span>Editar</span>
+            </v-tooltip>
+            <v-tooltip bottom v-if="props.item.active">
+              <v-btn icon flat small slot="activator" color="purple darken-4" @click="1+1">
+                <v-icon>fa-lock</v-icon>
+              </v-btn>
+              <span>Desactivar</span>
+            </v-tooltip>
+            <v-tooltip bottom v-else>
+              <v-btn icon flat small slot="activator" color="purple accent-4" @click="1+1">
+                <v-icon>fa-unlock</v-icon>
+              </v-btn>
+              <span>Activar</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <v-btn icon flat small slot="activator" color="error" @click="1+1">
+                <v-icon>delete</v-icon>
+              </v-btn>
+              <span>Eliminar</span>
+            </v-tooltip>
+          </td>
+        </template>
+      </v-data-table>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <pagination :limit="vPaginator.limit" :data="turns" @pagination-change-page="getData"></pagination>
+      </v-card-actions>
+    </v-flex>
+    <!-- Modal -->
+    <turns-create :show.sync="showCreateModal" />
+    <!-- <edit-category-modal :show.sync="showEditModal" :category-id.sync="currentCategoryId"></edit-category-modal> -->
+  </v-container>
+</v-layout>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    showCreateModal: false,
+    turns: {},
+    vPaginator: {
+      limit: 10
+    },
+    vHeaders: [
+      {
+        text: 'Id',
+        value: 'id'
+      },
+      {
+        text: 'Turno',
+        value: 'time'
+      },
+      {
+        text: 'Estado',
+        value: 'active'
+      },
+      {
+        align: 'left',
+        text: 'Acciones',
+        value: 'acciones',
+        sortable: false
+      }
+    ],
+  }),
+  watch: {
+    showCreateModal: function (value) {
+      !value && (this.getData());
+    },
+  },
+  methods: {
+    getData: async function (page = this.turns.current_page || 1) {
+      let response = await client.index(`/turns`, {
+        params: { page, },
+      });
+      response && (this.turns = response.data);
+    },
+    openCreateModal: function () {
+      this.showCreateModal = true;
+    },
+  },
+  mounted() {
+    this.getData();
+  },
+};
+</script>

@@ -27,6 +27,13 @@ Vue.use(Vuetify);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+// turn components
+Vue.component('turns-index', require('./components/turns/index.vue').default);
+Vue.component('turns-create', require('./components/turns/create.vue').default);
+
+Vue.component('picker-time', require('./components/pickerTime.vue').default);
+
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 /**
