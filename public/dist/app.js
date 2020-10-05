@@ -5666,7 +5666,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   props: ["initialImage"],
   watch: {
     initialImage: function initialImage(value) {
-      console.log('TYPWOF!!!! ', _typeof(value));
       typeof value === 'string' && (this.image = value);
       _typeof(value) === 'object' && (this.image = '');
     },
@@ -5804,26 +5803,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 this.vBtnSave.loading = true;
-                console.log(this.image);
-                console.log(this.publicationDate); // return console.log({
-                //   name: this.name,
-                //   publicationDate: this.publicationDate,
-                //   active: this.active,
-                //   image: this.image,
-                //   updateImage: true,
-                //   _method: 'PUT',
-                // });
-
                 formData = new FormData();
                 formData.append("name", this.name);
                 formData.append("publicationDate", this.publicationDate);
                 formData.append("active", this.active);
                 formData.append("image", this.image);
                 formData.append("updateImage", true);
-                _context.next = 11;
+                _context.next = 9;
                 return client.store("/movies", formData);
 
-              case 11:
+              case 9:
                 response = _context.sent;
                 this.vBtnSave.loading = false;
 
@@ -5833,9 +5822,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   this.active = true;
                   this.image = '';
                   alertify.success(response.data.message_text);
+                  !this.keepStoring && this.closeModal();
                 }
 
-              case 14:
+              case 12:
               case "end":
                 return _context.stop();
             }
@@ -6121,6 +6111,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -6156,12 +6148,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      time: "00:00:00",
+      image: '',
+      name: '',
+      publicationDate: moment__WEBPACK_IMPORTED_MODULE_1___default()().format('YYYY-MM-DD'),
       active: true,
       localShow: false,
+      keepStoring: true,
       vBtnSave: {
         loading: false
       }
@@ -6186,8 +6186,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         var id,
             response,
             _response$data$data,
-            time,
+            name,
+            publicationDate,
             active,
+            image,
             _args = arguments;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -6196,15 +6198,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 id = _args.length > 0 && _args[0] !== undefined ? _args[0] : this.id || 1;
                 _context.next = 3;
-                return client.show("/turns/".concat(id));
+                return client.show("/movies/".concat(id));
 
               case 3:
                 response = _context.sent;
 
                 if (response) {
-                  _response$data$data = response.data.data, time = _response$data$data.time, active = _response$data$data.active;
-                  this.time = time;
+                  _response$data$data = response.data.data, name = _response$data$data.name, publicationDate = _response$data$data.publicationDate, active = _response$data$data.active, image = _response$data$data.full_link;
+                  this.name = name;
+                  this.publicationDate = publicationDate;
                   this.active = active;
+                  this.image = image;
                 }
 
               case 5:
@@ -6221,26 +6225,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return getData;
     }(),
-    updateData: function () {
-      var _updateData = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var response;
+    storeData: function () {
+      var _storeData = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var formData, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 this.vBtnSave.loading = true;
-                _context2.next = 3;
-                return client.update("/turns/".concat(this.id), {
-                  time: this.time,
-                  active: this.active
-                });
+                formData = new FormData();
+                formData.append("name", this.name);
+                formData.append("publicationDate", this.publicationDate);
+                formData.append("active", this.active);
+                typeof this.image !== 'string' && formData.append("image", this.image);
+                formData.append("_method", 'PATCH');
+                _context2.next = 9;
+                return client.store("/movies/".concat(this.id), formData);
 
-              case 3:
+              case 9:
                 response = _context2.sent;
                 this.vBtnSave.loading = false;
-                response && alertify.success(response.data.message_text) && this.closeModal();
 
-              case 6:
+                if (response) {
+                  this.name = '';
+                  this.publicationDate = moment__WEBPACK_IMPORTED_MODULE_1___default()().format('YYYY-MM-DD');
+                  this.active = true;
+                  this.image = '';
+                  alertify.success(response.data.message_text);
+                }
+
+              case 12:
               case "end":
                 return _context2.stop();
             }
@@ -6248,17 +6262,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2, this);
       }));
 
-      function updateData() {
-        return _updateData.apply(this, arguments);
+      function storeData() {
+        return _storeData.apply(this, arguments);
       }
 
-      return updateData;
+      return storeData;
     }(),
     closeModal: function closeModal() {
       this.localShow = false;
+      this.keepStoring = true;
     },
-    updateTime: function updateTime(item) {
-      this.time = item;
+    updateDate: function updateDate(item) {
+      this.publicationDate = item;
+    },
+    upadteImage: function upadteImage(item) {
+      this.image = item;
     }
   }
 });
@@ -6506,6 +6524,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   this.time = '00:00:00';
                   this.active = true;
                   alertify.success(response.data.message_text);
+                  !this.keepStoring && this.closeModal();
                 }
 
               case 6:
@@ -66470,7 +66489,7 @@ var render = function() {
                               icon: "",
                               flat: "",
                               small: "",
-                              color: "light-green"
+                              color: "light-blue darken-4"
                             },
                             on: {
                               click: function($event) {
@@ -66479,11 +66498,11 @@ var render = function() {
                             },
                             slot: "activator"
                           },
-                          [_c("v-icon", [_vm._v("edit")])],
+                          [_c("v-icon", [_vm._v("fa-bell")])],
                           1
                         ),
                         _vm._v(" "),
-                        _c("span", [_vm._v("Editar")])
+                        _c("span", [_vm._v("Asignar turnos")])
                       ],
                       1
                     ),
@@ -66676,7 +66695,7 @@ var render = function() {
                 { attrs: { color: "#475660", flat: "" } },
                 [
                   _c("v-toolbar-title", { staticClass: "white--text" }, [
-                    _vm._v("Actualizar Turno")
+                    _vm._v("Actualizar Película")
                   ]),
                   _vm._v(" "),
                   _c("v-spacer"),
@@ -66710,30 +66729,76 @@ var render = function() {
                         "v-layout",
                         { attrs: { wrap: "" } },
                         [
-                          _c("picker-time", {
-                            attrs: { initialTime: _vm.time },
-                            on: {
-                              selected: _vm.updateTime,
-                              "update:initialTime": function($event) {
-                                _vm.time = $event
+                          _c("v-text-field", {
+                            attrs: {
+                              color: "#475660",
+                              "single-line": "",
+                              "prepend-icon": "fa-film",
+                              label: "Nombre"
+                            },
+                            model: {
+                              value: _vm.name,
+                              callback: function($$v) {
+                                _vm.name = $$v
                               },
-                              "update:initial-time": function($event) {
-                                _vm.time = $event
+                              expression: "name"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("picker-date", {
+                            attrs: { initialDate: _vm.publicationDate },
+                            on: {
+                              selected: _vm.updateDate,
+                              "update:initialDate": function($event) {
+                                _vm.publicationDate = $event
+                              },
+                              "update:initial-date": function($event) {
+                                _vm.publicationDate = $event
                               }
                             }
                           }),
                           _vm._v(" "),
-                          _c("v-switch", {
-                            attrs: {
-                              color: "#475660",
-                              label: "" + (_vm.active ? "Activo" : "Inactivo")
+                          _c(
+                            "v-flex",
+                            {
+                              attrs: {
+                                xs12: "",
+                                sm12: "",
+                                md12: "",
+                                lg12: "",
+                                xl12: ""
+                              }
                             },
-                            model: {
-                              value: _vm.active,
-                              callback: function($$v) {
-                                _vm.active = $$v
+                            [
+                              _c("v-switch", {
+                                staticClass: "mt-0",
+                                attrs: {
+                                  color: "#475660",
+                                  label:
+                                    "" + (_vm.active ? "Activo" : "Inactivo")
+                                },
+                                model: {
+                                  value: _vm.active,
+                                  callback: function($$v) {
+                                    _vm.active = $$v
+                                  },
+                                  expression: "active"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("drag-n-drop-image", {
+                            attrs: { initialImage: _vm.image },
+                            on: {
+                              imageSelected: _vm.upadteImage,
+                              "update:initialImage": function($event) {
+                                _vm.image = $event
                               },
-                              expression: "active"
+                              "update:initial-image": function($event) {
+                                _vm.image = $event
+                              }
                             }
                           })
                         ],
@@ -66761,7 +66826,7 @@ var render = function() {
                         flat: "",
                         loading: _vm.vBtnSave.loading
                       },
-                      on: { click: _vm.updateData }
+                      on: { click: _vm.storeData }
                     },
                     [_vm._v(" Guardar ")]
                   )

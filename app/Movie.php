@@ -52,7 +52,8 @@ class Movie extends Model
      */
     public function getFullLinkAttribute($value)
     {
-        return env('APP_URL').$this->imageLink;
+        if(env('APP_ENV') == "local") return "http://127.0.0.1:8000".$this->imageLink;
+        return env('MIX_APP_URL').$this->imageLink;
     }
 
     /**

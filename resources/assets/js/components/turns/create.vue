@@ -62,6 +62,7 @@ export default {
         this.time = '00:00:00';
         this.active = true;
         alertify.success(response.data.message_text)
+        !this.keepStoring && (this.closeModal());
       }
     },
     closeModal: function () {

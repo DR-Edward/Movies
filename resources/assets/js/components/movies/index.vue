@@ -23,10 +23,10 @@
               <span>Editar</span>
             </v-tooltip>
             <v-tooltip bottom>
-              <v-btn icon flat small slot="activator" color="light-green" @click="openUpdateModal(props.item.id)">
-                <v-icon>edit</v-icon>
+              <v-btn icon flat small slot="activator" color="light-blue darken-4" @click="openUpdateModal(props.item.id)">
+                <v-icon>fa-bell</v-icon>
               </v-btn>
-              <span>Editar</span>
+              <span>Asignar turnos</span>
             </v-tooltip>
             <v-tooltip bottom v-if="props.item.active">
               <v-btn icon flat small slot="activator" color="purple darken-4" @click="updateFieldData(props.item.id, false)">

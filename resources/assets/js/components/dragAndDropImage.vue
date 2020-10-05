@@ -34,7 +34,6 @@
     ],
     watch: {
       initialImage: function (value) {
-        console.log('TYPWOF!!!! ', typeof value);
         typeof value === 'string' && (this.image = value);
         typeof value === 'object' && (this.image = '');
       },

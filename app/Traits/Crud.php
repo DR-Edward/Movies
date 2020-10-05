@@ -146,6 +146,48 @@ trait Crud {
     }
 
     /**
+     * Update the specified resource in storage.
+     * it can be one field or more. This is controlled by the rules implemented in each case
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  array  $rules
+     * @param  int  $id
+     * @return array
+     */
+    public static function update_with_file($request, $rules = [], $id){
+        $request->validate($rules);
+
+        $resource = null;
+        $message_type = 'success';
+        $message_text = 'Updated';
+        $code = 200;
+
+        try{
+            $data = $request->all();
+            $resource = self::findOrFail($id);
+
+            if( $request->file('image') ){
+                $imageData = ImageHandler::store($request->file('image'));
+                $data['imageLink'] = $imageData['link'];
+            }
+
+            $resource->update($data);
+        }catch(\Exception $e){
+            $resource = $e;
+            $message_type = 'error';
+            $message_text = 'Can not be updated';
+            $code = 404;
+        }
+
+        return [
+            'data' => $resource,
+            'message_type' => $message_type,
+            'message_text' => $message_text,
+            'code' => $code
+        ];
+    }
+
+    /**
      * Remove the specified resource from storage.
      * 
      * @param  int  $id

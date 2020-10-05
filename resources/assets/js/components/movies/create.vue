@@ -61,17 +61,6 @@ export default {
   methods: {
     storeData: async function () {
       this.vBtnSave.loading = true;
-      
-      console.log(this.image)
-      console.log(this.publicationDate)
-      // return console.log({
-      //   name: this.name,
-      //   publicationDate: this.publicationDate,
-      //   active: this.active,
-      //   image: this.image,
-      //   updateImage: true,
-      //   _method: 'PUT',
-      // });
 
       const formData = new FormData();
       formData.append("name", this.name);
@@ -88,6 +77,7 @@ export default {
         this.active = true;
         this.image = '';
         alertify.success(response.data.message_text)
+        !this.keepStoring && (this.closeModal());
       }
     },
     closeModal: function () {
