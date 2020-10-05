@@ -19,7 +19,13 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
+import Client from './lib/client';
+import Swal from './lib/swal';
+
 window.axios = require('axios');
+window.alertify = require('alertifyjs');
+window.client = new Client();
+window.swal = new Swal();
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

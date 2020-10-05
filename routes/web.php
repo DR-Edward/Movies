@@ -24,8 +24,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     
     // ROUTES -> Turns
+    Route::patch('/turns/activator/{id}', 'TurnController@activator')->name('turns.activator');
     Route::resource('/turns', 'TurnController');
 
     // ROUTES -> Movies
+    Route::patch('/movies/activator/{id}', 'MovieController@activator');
+    Route::patch('/movies/turns/{id}', 'MovieController@update_turns');
     Route::resource('/movies', 'MovieController');
 });
