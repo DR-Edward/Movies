@@ -19,8 +19,6 @@
 6. Si desea el modo desarrollo - Correr php artisan build:development:refresh (ejecuta migraciones, seeders de desarrollo, limpia la carpeta storage, crea link simbólico y genera keys de passport)
 6. Si desea el modo producción - Correr php artisan build:production:refresh (ejecuta migraciones, seeders de producción, limpia la carpeta storage, crea link simbólico y genera keys de passport)
 
-
-
 ## Acceso
 
 * Usuario: admin@dredward.site

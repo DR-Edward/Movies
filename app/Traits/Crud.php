@@ -11,7 +11,7 @@ trait Crud {
      * @return array
      */
     public static function index_default($relationships = []) {
-        $resources = self::with($relationships)->paginate(10);
+        $resources = self::with($relationships)->orderBy('id', 'desc')->paginate(10);
         return $resources;
     }
 
@@ -63,7 +63,7 @@ trait Crud {
 
         $resource = null;
         $message_type = 'success';
-        $message_text = 'Deleted';
+        $message_text = 'Created successfully';
         $code = 200;
 
         try{
@@ -89,13 +89,13 @@ trait Crud {
      * @param  int  $id
      * @return array
      */
-    public static function show_default($id) {
+    public static function show_default($id, $relationships = []) {
         $message_type = 'success';
-        $message_text = 'Deleted';
+        $message_text = 'Found it.';
         $code = 200;
 
         try{
-            $resource = self::findOrFail($id);
+            $resource = self::with($relationships)->findOrFail($id);
         }catch(\Exception $e){
             $resource = $e;
             $message_type = 'error';
@@ -146,6 +146,48 @@ trait Crud {
     }
 
     /**
+     * Update the specified resource in storage.
+     * it can be one field or more. This is controlled by the rules implemented in each case
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  array  $rules
+     * @param  int  $id
+     * @return array
+     */
+    public static function update_with_file($request, $rules = [], $id){
+        $request->validate($rules);
+
+        $resource = null;
+        $message_type = 'success';
+        $message_text = 'Updated';
+        $code = 200;
+
+        try{
+            $data = $request->all();
+            $resource = self::findOrFail($id);
+
+            if( $request->file('image') ){
+                $imageData = ImageHandler::store($request->file('image'));
+                $data['imageLink'] = $imageData['link'];
+            }
+
+            $resource->update($data);
+        }catch(\Exception $e){
+            $resource = $e;
+            $message_type = 'error';
+            $message_text = 'Can not be updated';
+            $code = 404;
+        }
+
+        return [
+            'data' => $resource,
+            'message_type' => $message_type,
+            'message_text' => $message_text,
+            'code' => $code
+        ];
+    }
+
+    /**
      * Remove the specified resource from storage.
      * 
      * @param  int  $id
@@ -180,7 +222,7 @@ trait Crud {
 
     /**
      * $relation_name must be a valid relationship
-     * $field_name muyt be a valid request input name
+     * $field_name must be a valid request input name
      * 
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id

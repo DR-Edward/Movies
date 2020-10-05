@@ -48,7 +48,7 @@ class MovieController extends Controller
      */
     public function show($id)
     {
-        $response = Movie::show_default($id);
+        $response = Movie::show_default($id, ['turns']);
         return response()->json($response, $response['code']);
     }
 
@@ -72,7 +72,7 @@ class MovieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $response = Movie::update_default($request, Movie::$rules, $id);
+        $response = Movie::update_with_file($request, Movie::$rules, $id);
         return response()->json($response, $response['code']);
     }
 

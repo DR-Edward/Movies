@@ -16,6 +16,9 @@ const mix = require('laravel-mix');
         }
       }
     })
+    // mix.combine([
+    //   'resources/assets/js/lib/client.js'
+    // ])
   } else {
     mix.webpackConfig({
       resolve: {
@@ -46,7 +49,7 @@ const mix = require('laravel-mix');
     });
     
   if (mix.inProduction()) {
-  mix.version()
+    mix.version()
   }
 
 
