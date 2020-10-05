@@ -1,17 +1,19 @@
 <template>
-<v-layout>
-  <v-container>
-    <v-flex xs12>
-      <v-toolbar color="#475660" flat>
-        <v-toolbar-title class="white--text">Turnos</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn class="light-green" @click="openCreateModal" v-if="1+1 ? true : false">Crear</v-btn>
-      </v-toolbar>
-      <v-data-table :headers="vHeaders" disable-initial-sort :items="turns.data || []" hide-actions class="elevation-1">
+  <div>
+    <v-toolbar color="#475660" flat>
+      <v-toolbar-title class="white--text">Turnos</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn class="light-green" @click="openCreateModal" v-if="1+1 ? true : false">Crear</v-btn>
+    </v-toolbar>
+    <v-data-table :headers="vHeaders" disable-initial-sort :items="turns.data || []" hide-actions class="elevation-1">
         <template slot="items" slot-scope="props">
           <td > {{props.item.id }}</td>
           <td class="text-xs-left"> {{ props.item.time }}</td>
-          <td class="text-xs-left"> {{ props.item.active ? 'Activo' : 'Inactivo' }}</td>
+          <td class="text-xs-left"> 
+            <v-chip :color="props.item.active ? 'purple accent-4' : 'purple darken-4'" text-color="white">
+              {{ props.item.active ? 'Activo' : 'Inactivo' }}
+            </v-chip>
+          </td>
           <td class="justify-left layout px-0">
             <v-tooltip bottom>
               <v-btn icon flat small slot="activator" color="light-green" @click="openUpdateModal(props.item.id)">
@@ -39,17 +41,14 @@
             </v-tooltip>
           </td>
         </template>
-      </v-data-table>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <pagination :limit="vPaginator.limit" :data="turns" @pagination-change-page="getData"></pagination>
-      </v-card-actions>
-    </v-flex>
-    <!-- Modal -->
+    </v-data-table>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <pagination :limit="vPaginator.limit" :data="turns" @pagination-change-page="getData"></pagination>
+    </v-card-actions>
     <turns-create :show.sync="showCreateModal" />
     <turns-update :show.sync="showUpdateModal" :id.sync="elementId" />
-  </v-container>
-</v-layout>
+  </div>
 </template>
 
 <script>

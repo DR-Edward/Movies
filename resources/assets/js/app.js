@@ -33,7 +33,15 @@ Vue.component('turns-index', require('./components/turns/index.vue').default);
 Vue.component('turns-create', require('./components/turns/create.vue').default);
 Vue.component('turns-update', require('./components/turns/update.vue').default);
 
+// movies components
+Vue.component('movies-index', require('./components/movies/index.vue').default);
+Vue.component('movies-create', require('./components/movies/create.vue').default);
+Vue.component('movies-update', require('./components/movies/update.vue').default);
+
+Vue.component('picker-date', require('./components/pickerDate.vue').default);
 Vue.component('picker-time', require('./components/pickerTime.vue').default);
+
+Vue.component('drag-n-drop-image', require('./components/dragAndDropImage.vue').default);
 
 Vue.component('pagination', require('laravel-vue-pagination'));
 

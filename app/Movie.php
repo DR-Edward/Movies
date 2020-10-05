@@ -56,15 +56,15 @@ class Movie extends Model
     }
 
     /**
-     * The validation rules.
+     * The validation rules for store.
      *
      * @var array
      */
     public static $rules = [
         'name' => 'required|string',
         'publicationDate' => 'required|date_format:Y-m-d',
-        'image' => 'required|image',
-        'active' => 'required|boolean',
+        'image' => 'required_with:updateImage|image',
+        'active' => 'required',
     ];
     
     /**
@@ -74,7 +74,7 @@ class Movie extends Model
      */
     public static function rules_activator() {
         return [
-            'active' => 'required|boolean',
+            'active' => 'required',
             'name' => [new NotPresent],
             'publicationDate' => [new NotPresent],
             'image' => [new NotPresent],

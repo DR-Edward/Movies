@@ -24,7 +24,6 @@
         use-seconds
       >
         <v-spacer></v-spacer>
-        <v-btn flat color="error" @click="closeModal">Cancel</v-btn>
         <v-btn flat color="light-green" @click="selectTime">OK</v-btn>
       </v-time-picker>
     </v-dialog>
