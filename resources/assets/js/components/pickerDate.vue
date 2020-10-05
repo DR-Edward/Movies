@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs12 sm12 >
+  <v-flex xs12 sm12>
     <v-dialog
       ref="dialog"
       v-model="modal"
@@ -17,11 +17,7 @@
           v-on="on"
         ></v-text-field>
       </template>
-      <v-date-picker
-        color="#475660"
-        v-model="date"
-        :max="today"
-      >
+      <v-date-picker color="#475660" v-model="date" :max="today">
         <v-spacer></v-spacer>
         <v-btn flat color="light-green" @click="selectDate">OK</v-btn>
       </v-date-picker>
@@ -30,7 +26,7 @@
 </template>
 
 <script>
-import moment, { now } from 'moment';
+import moment, { now } from "moment";
 
 export default {
   data: () => ({
@@ -47,20 +43,20 @@ export default {
     },
   },
   methods: {
-    now: function(){
-      return moment().format('YYYY-MM-DD');
+    now: function () {
+      return moment().format("YYYY-MM-DD");
     },
     closeModal: function () {
       this.modal = false;
     },
-    selectDate: function(){
+    selectDate: function () {
       this.$emit("selected", this.date);
       this.closeModal();
-    }
+    },
   },
   mounted() {
     this.today = this.now();
-    this.date = this.today; 
+    this.date = this.today;
   },
 };
 </script>

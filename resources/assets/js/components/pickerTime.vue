@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs12 sm12 >
+  <v-flex xs12 sm12>
     <v-dialog
       ref="dialog"
       v-model="modal"
@@ -17,12 +17,7 @@
           v-on="on"
         ></v-text-field>
       </template>
-      <v-time-picker
-        color="#475660"
-        v-model="time"
-        format="24hr" 
-        use-seconds
-      >
+      <v-time-picker color="#475660" v-model="time" format="24hr" use-seconds>
         <v-spacer></v-spacer>
         <v-btn flat color="light-green" @click="selectTime">OK</v-btn>
       </v-time-picker>
@@ -48,10 +43,10 @@ export default {
     closeModal: function () {
       this.modal = false;
     },
-    selectTime: function(){
+    selectTime: function () {
       this.$emit("selected", this.time);
       this.closeModal();
-    }
-  }
+    },
+  },
 };
 </script>

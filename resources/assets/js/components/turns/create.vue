@@ -12,16 +12,34 @@
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-              <picker-time v-on:selected="updateTime" :initialTime.sync="time"/>
-              <v-switch color="#475660" :label="`${ active ? 'Activo' : 'Inactivo' }`" v-model="active"></v-switch>
+              <picker-time
+                v-on:selected="updateTime"
+                :initialTime.sync="time"
+              />
+              <v-switch
+                color="#475660"
+                :label="`${active ? 'Activo' : 'Inactivo'}`"
+                v-model="active"
+              ></v-switch>
             </v-layout>
           </v-container>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-switch color="#475660" label="Seguir registrando" v-model="keepStoring"></v-switch>
+          <v-switch
+            color="#475660"
+            label="Seguir registrando"
+            v-model="keepStoring"
+          ></v-switch>
           <v-spacer></v-spacer>
-          <v-btn color="light-green" @click="storeData" flat :loading="vBtnSave.loading"> Guardar </v-btn>
+          <v-btn
+            color="light-green"
+            @click="storeData"
+            flat
+            :loading="vBtnSave.loading"
+          >
+            Guardar
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -54,15 +72,15 @@ export default {
     storeData: async function () {
       this.vBtnSave.loading = true;
       let response = await client.store(`/turns`, {
-        time: this.time, 
+        time: this.time,
         active: this.active,
       });
       this.vBtnSave.loading = false;
-      if(response){
-        this.time = '00:00:00';
+      if (response) {
+        this.time = "00:00:00";
         this.active = true;
-        alertify.success(response.data.message_text)
-        !this.keepStoring && (this.closeModal());
+        alertify.success(response.data.message_text);
+        !this.keepStoring && this.closeModal();
       }
     },
     closeModal: function () {

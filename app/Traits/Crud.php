@@ -89,13 +89,13 @@ trait Crud {
      * @param  int  $id
      * @return array
      */
-    public static function show_default($id) {
+    public static function show_default($id, $relationships = []) {
         $message_type = 'success';
         $message_text = 'Found it.';
         $code = 200;
 
         try{
-            $resource = self::findOrFail($id);
+            $resource = self::with($relationships)->findOrFail($id);
         }catch(\Exception $e){
             $resource = $e;
             $message_type = 'error';

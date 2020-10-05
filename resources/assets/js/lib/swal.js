@@ -5,7 +5,7 @@ import swal from 'sweetalert';
  * @author Edward Delgado
  * @param Object config
 */
-class swalGenerator{
+class swalGenerator {
   constructor() {
     this.config = {
       title: "¿Estás seguro?",
@@ -16,7 +16,7 @@ class swalGenerator{
     };
   }
 
-  async confirmation(config = this.config){
+  async confirmation(config = this.config) {
     return await swal(config);
   };
 };
