@@ -57,32 +57,6 @@ class Movie extends Model
     }
 
     /**
-     * The validation rules for store.
-     *
-     * @var array
-     */
-    public static $rules = [
-        'name' => 'required|string',
-        'publicationDate' => 'required|date_format:Y-m-d',
-        'image' => 'required_with:updateImage|image',
-        'active' => 'required',
-    ];
-    
-    /**
-     * The validation rules for activator field.
-     *
-     * @var array
-     */
-    public static function rules_activator() {
-        return [
-            'active' => 'required',
-            'name' => [new NotPresent],
-            'publicationDate' => [new NotPresent],
-            'image' => [new NotPresent],
-        ];
-    }
-
-    /**
      * The turns that belong to the movie.
      */
     public function turns()

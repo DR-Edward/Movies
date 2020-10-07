@@ -40,16 +40,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * The validation rules.
-     *
-     * @var array
-     */
-    public static $rules_make_token = [
-        'email'       => 'required|string|email',
-        'password'    => 'required|string',
-    ];
-
-    /**
      * @param Request $request
      * Make token
      * @return string
