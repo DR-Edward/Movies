@@ -6,14 +6,16 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\User;
-use App\Turn;
+use App\Movie;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
-class TurnControllerTest extends TestCase
+class MovieControllerTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
-    
+
     /**
-     * Test for turns index.
+     * A basic feature test example.
      *
      * @return void
      */
@@ -21,15 +23,15 @@ class TurnControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->get(route('turns.index'));
+        $response = $this->actingAs($user)->get(route('movies.index'));
 
         $response->assertStatus(200);
 
-        $response->assertViewIs('turns.index');
+        $response->assertViewIs('movies.index');
     }
 
     /**
-     * Test for turns api index.
+     * Test for movies api index.
      *
      * @return void
      */
@@ -37,7 +39,7 @@ class TurnControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->getJson(route('turns.index'));
+        $response = $this->actingAs($user)->getJson(route('movies.index'));
 
         $response->assertStatus(200);
     }
@@ -47,34 +49,22 @@ class TurnControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_store_returns_json_data()
+    public function test_store_with_image_returns_json_data()
     {
+        Storage::fake('testing');
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->postJson(route('turns.store'), [
-            'time' => $this->faker->time(),
+        $response = $this->actingAs($user)->postJson(route('movies.store'), [
+            'name' => $this->faker->name,
+            'publicationDate' => $this->faker->date(),
             'active' => $this->faker->boolean($chanceOfGettingTrue = 50),
+            'image' => UploadedFile::fake()->image('test_image.jpg'),
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(201);
+        // no se verifica que la imagen este en el disco porque al ser almacenada se le cambia el nombre y no es posible saberlo
     }
 
-    /**
-     * Test for turns put update.
-     *
-     * @return void
-     */
-    public function test_put_update_returns_json_data()
-    {
-        $user = factory(User::class)->create();
-
-        $turn = factory(Turn::class)->create();
-
-        $response = $this->actingAs($user)->putJson(route('turns.update', 1), $turn->toArray());
-
-        $response->assertStatus(200);
-    }
-    
     /**
      * Test for turns delete.
      *
@@ -84,9 +74,9 @@ class TurnControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $turn = factory(Turn::class)->create();
+        $movie = factory(Movie::class)->create();
 
-        $response = $this->actingAs($user)->deleteJson(route('turns.destroy', $turn->id));
+        $response = $this->actingAs($user)->deleteJson(route('movies.destroy', $movie->id));
 
         $response->assertStatus(200);
     }
