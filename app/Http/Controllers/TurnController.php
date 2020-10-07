@@ -40,7 +40,7 @@ class TurnController extends Controller
      */
     public function store(TurnCreateRequest $request)
     {
-        $response = Turn::store_default($request);
+        $response = Turn::store_default($request->all());
         return response()->json($response, $response['code']);
     }
 
@@ -76,7 +76,7 @@ class TurnController extends Controller
      */
     public function update(TurnUpdateRequest $request, $id)
     {
-        $response = Turn::update_default($request, Turn::$rules, $id);
+        $response = Turn::update_default($request->all(), $id);
         return response()->json($response, $response['code']);
     }
 
@@ -100,7 +100,7 @@ class TurnController extends Controller
      */
     public function activator(TurnActivatorRequest $request, $id)
     {
-        $response = Turn::update_default($request, Turn::rules_activator(), $id);
+        $response = Turn::update_default($request->all(), $id);
         return response()->json($response, $response['code']);
     }
 }

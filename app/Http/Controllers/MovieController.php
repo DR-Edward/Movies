@@ -39,7 +39,7 @@ class MovieController extends Controller
      */
     public function store(MoviesCreateRequest $request)
     {
-        $response = Movie::store_with_file($request);
+        $response = Movie::store_with_file($request->all());
         return response()->json($response, $response['code']);
     }
 
@@ -75,7 +75,7 @@ class MovieController extends Controller
      */
     public function update(MoviesUpdateRequest $request, $id)
     {
-        $response = Movie::update_with_file($request, Movie::$rules, $id);
+        $response = Movie::update_with_file($request->all(), $id);
         return response()->json($response, $response['code']);
     }
 
@@ -99,7 +99,7 @@ class MovieController extends Controller
      */
     public function activator(MoviesActivatorRequest $request, $id)
     {
-        $response = Movie::update_default($request, Movie::rules_activator(), $id);
+        $response = Movie::update_default($request->all(), $id);
         return response()->json($response, $response['code']);
     }
     
