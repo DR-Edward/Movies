@@ -21,18 +21,16 @@ trait Crud {
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public static function store_with_file($request) {
-        $request->validate(self::$rules);
-        
+    public static function store_with_file($fields_to_store) {
         $resource = null;
         $message_type = 'success';
         $message_text = 'Created successfully';
         $code = 201;
 
-        $imageData = ImageHandler::store($request->file('image'));
+        $imageData = ImageHandler::store($fields_to_store['image']);
 
         try{
-            $data = $request->all();
+            $data = $fields_to_store;
             $data['imageLink'] = $imageData['link'];
             $resource = self::create($data);
         }catch(\Exception $e){
@@ -55,19 +53,17 @@ trait Crud {
     /**
      * Store a newly created resource in storage.
      * 
-     * @param  int  $id
+     * @param  {any}  $fields
      * @return array
      */
-    public static function store_default($request) {
-        $request->validate(self::$rules);
-
+    public static function store_default($fields_to_store) {
         $resource = null;
         $message_type = 'success';
         $message_text = 'Created successfully';
         $code = 200;
 
         try{
-            $resource = self::create($request->all());
+            $resource = self::create($fields_to_store);
         }catch(\Exception $e){
             $resource = $e;
             $message_type = 'error';
@@ -120,16 +116,14 @@ trait Crud {
      * @param  int  $id
      * @return array
      */
-    public static function update_default($request, $rules = [], $id){
-        $request->validate($rules);
-
+    public static function update_default($fields_to_update, $id){
         $resource = null;
         $message_type = 'success';
         $message_text = 'Updated';
         $code = 200;
 
         try{
-            $resource = self::findOrFail($id)->update($request->all());
+            $resource = self::findOrFail($id)->update($fields_to_update);
         }catch(\Exception $e){
             $resource = $e;
             $message_type = 'error';
@@ -154,20 +148,18 @@ trait Crud {
      * @param  int  $id
      * @return array
      */
-    public static function update_with_file($request, $rules = [], $id){
-        $request->validate($rules);
-
+    public static function update_with_file($fields_to_update, $id){
         $resource = null;
         $message_type = 'success';
         $message_text = 'Updated';
         $code = 200;
 
         try{
-            $data = $request->all();
+            $data = $fields_to_update;
             $resource = self::findOrFail($id);
 
-            if( $request->file('image') ){
-                $imageData = ImageHandler::store($request->file('image'));
+            if( $data['image'] ){
+                $imageData = ImageHandler::store($data['image']);
                 $data['imageLink'] = $imageData['link'];
             }
 

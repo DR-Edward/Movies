@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -37,4 +38,42 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @param Request $request
+     * Make token
+     * @return string
+    */
+    public static function create_token($request) {
+        // $request->validate(User::$rules_make_token);
+
+        if(!Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
+            return response()->json([
+                'message_type' => 'error',
+                'message_text' => 'Incorrect user or password',
+            ], 401);
+        }
+
+        $user = Auth::user();
+        $credentials = $user->createToken('Access from API client');
+
+        return [
+            'user' => $user,
+            'credentials' => $credentials
+        ];
+    }
+
+    /**
+     * @param Request $request
+     * Revoke Token
+     * @return string
+    */
+    public static function revoke_token($request) {
+        $request->user()->token()->revoke();
+        
+        return [
+            'message_type' => 'success',
+            'message_text' => 'See you later',
+        ];
+    }
 }
