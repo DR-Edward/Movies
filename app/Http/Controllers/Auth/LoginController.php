@@ -6,9 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use App\Helpers\Auth\Login;
-use App\Helpers\Auth\Logout;
-
+use App\User;
+use App\Http\Requests\TokenCreateRequest;
 class LoginController extends Controller
 {
     /*
@@ -46,8 +45,8 @@ class LoginController extends Controller
      * get a token
      * @return \Illuminate\Http\Response (JSON)
      */
-    public function api_login(Request $request){
-        $loginData = Login::create_token($request);
+    public function api_login(TokenCreateRequest $request){
+        $loginData = User::create_token($request);
         return response()->json($loginData);
     }
     
@@ -57,8 +56,7 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response (JSON)
      */
     public function api_logout(Request $request){
-
-        $logoutData = Logout::revoke_token($request);
+        $logoutData = User::revoke_token($request);
         return response()->json($logoutData);
     }
 

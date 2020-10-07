@@ -86,7 +86,7 @@ class TurnControllerTest extends TestCase
 
         $turn = factory(Turn::class)->create();
 
-        $response = $this->actingAs($user)->deleteJson(route('turns.destroy', 1));
+        $response = $this->actingAs($user)->deleteJson(route('turns.destroy', $turn->id));
 
         $response->assertStatus(200);
     }
