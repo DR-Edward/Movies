@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\MoviesCreateRequest;
+use App\Http\Requests\MoviesUpdateRequest;
+use App\Http\Requests\MoviesActivatorRequest;
 use App\Movie;
 class MovieController extends Controller
 {
@@ -34,7 +37,7 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MoviesCreateRequest $request)
     {
         $response = Movie::store_with_file($request);
         return response()->json($response, $response['code']);
@@ -70,7 +73,7 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MoviesUpdateRequest $request, $id)
     {
         $response = Movie::update_with_file($request, Movie::$rules, $id);
         return response()->json($response, $response['code']);
@@ -94,7 +97,7 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function activator(Request $request, $id)
+    public function activator(MoviesActivatorRequest $request, $id)
     {
         $response = Movie::update_default($request, Movie::rules_activator(), $id);
         return response()->json($response, $response['code']);

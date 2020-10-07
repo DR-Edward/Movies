@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TurnCreateRequest;
+use App\Http\Requests\TurnUpdateRequest;
+use App\Http\Requests\TurnActivatorRequest;
 use App\Turn;
 
 class TurnController extends Controller
@@ -35,7 +38,7 @@ class TurnController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TurnCreateRequest $request)
     {
         $response = Turn::store_default($request);
         return response()->json($response, $response['code']);
@@ -71,7 +74,7 @@ class TurnController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TurnUpdateRequest $request, $id)
     {
         $response = Turn::update_default($request, Turn::$rules, $id);
         return response()->json($response, $response['code']);
@@ -95,7 +98,7 @@ class TurnController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function activator(Request $request, $id)
+    public function activator(TurnActivatorRequest $request, $id)
     {
         $response = Turn::update_default($request, Turn::rules_activator(), $id);
         return response()->json($response, $response['code']);

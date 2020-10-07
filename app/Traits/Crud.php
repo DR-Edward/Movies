@@ -22,8 +22,6 @@ trait Crud {
      * @return array
      */
     public static function store_with_file($request) {
-        $request->validate(self::$rules);
-        
         $resource = null;
         $message_type = 'success';
         $message_text = 'Created successfully';
@@ -59,8 +57,6 @@ trait Crud {
      * @return array
      */
     public static function store_default($request) {
-        $request->validate(self::$rules);
-
         $resource = null;
         $message_type = 'success';
         $message_text = 'Created successfully';
@@ -121,8 +117,6 @@ trait Crud {
      * @return array
      */
     public static function update_default($request, $rules = [], $id){
-        $request->validate($rules);
-
         $resource = null;
         $message_type = 'success';
         $message_text = 'Updated';
@@ -155,8 +149,6 @@ trait Crud {
      * @return array
      */
     public static function update_with_file($request, $rules = [], $id){
-        $request->validate($rules);
-
         $resource = null;
         $message_type = 'success';
         $message_text = 'Updated';
