@@ -4,13 +4,10 @@
 #
 version: 2
 jobs:
-  test:
-    working_directory: /var/www/html/dev-docker
+  build:
     docker:
       # Specify the version you desire here
-      - image: php:7.4-apache
-        environment:
-          APP_ENV: testing
+      - image: circleci/php:7.1-node-browsers
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -24,250 +21,39 @@ jobs:
     steps:
       - checkout
 
-      - run: 
-          name: Install System Packages
-          command: apt update && apt -y install git
-      - run:
-          name: Install PHP Extensions
-          command: | 
-            apt install -y zlib1g-dev libpng-dev libzip-dev
-            docker-php-ext-install pdo pdo_mysql zip gd
-      - run:
-          name: Install Composer
-          command: |
-            php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-            php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
-            php composer-setup.php
-            php -r "unlink('composer-setup.php');"
-      - run:
-          name: Display PHP Information
-          command: |
-            php -v
-            php composer.phar --version
+      - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
+      - run: sudo docker-php-ext-install zip
+
+      # Download and cache dependencies
       - restore_cache:
           keys:
-          - composer-v3-{{ checksum "composer.json" }}
-          - composer-v3-{{ checksum "composer.lock" }}
-          - composer-v3-
-      - run:
-          name: Install Project Dependencies
-          command: php composer.phar install -n --prefer-dist
-      - save_cache:
-          key: composer-v3-{{ checksum "composer.lock" }}
-          paths:
-          - /root/.composer/cache/files
-      - run:
-          name: Cleaning Artisan Config
-          command: |
-            php artisan config:clear
-  development_deployment: 
-    machine:
-      enabled: true
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "${PROD_SERVER_SSH_FINGERPRINT}"
-      - run:
-          name: Enable Maintenance Mode
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && php artisan down --message=\"Update in progress\" --retry=30"
-      - run:
-          name: Checkout Develop
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && git pull origin develop"
-      - run:
-          name: Install Project Dependencies
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && composer install -n --prefer-dist"
-      - run:
-          name: Run New Migrations
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && php artisan migrate --force"
-      - run:
-          name: Install NPM Dependencies
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && npm ci"
-      - run:
-          name: Webpack Compilation
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && npm run dev"
-      - run:
-          name: Building Project (build:development:refresh)
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && sudo php artisan build:development:refresh"
-      # - run:
-      #     name: Migrating and Seeding
-      #     command: |
-      #       ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && php artisan migrate:refresh --seed"
-      # - run:
-      #    name: Passport Encryption Keys Generation
-      #    command: |
-      #      ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && php artisan passport:install --force"
-      - run:
-          name: Display an Inspiring Quote
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && php artisan inspire"
-      - run:
-          name: Cache clear
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && sudo php artisan cache:clear"
-      - run:
-          name: Disable Maintenance Mode
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/dev && php artisan up"
-  uat_deployment:
-    machine:
-      enabled: true
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "${PROD_SERVER_SSH_FINGERPRINT}"
-      - run:
-          name: Enable Maintenance Mode
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $UAT_DIRECTORY && php artisan down --message=\"Update in progress\" --retry=30"
-      #- run:
-      #    name: Backup uat Database
-      #    command: |
-      #      ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $UAT_DIRECTORY && mysqldump -u $UAT_MYSQL_USER -p$UAT_MYSQL_PASSWORD $UAT_MYSQL_DATABASE > ${UAT_BACKUP_DIRECTORY}/mysql/${UAT_MYSQL_DATABASE}-$(date "+%b_%d_%Y_%H_%M_%S").sql"
-      - run:
-          name: Checkout Master
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $UAT_DIRECTORY && git pull origin master"
-      - run:
-          name: Install Project Dependencies
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $UAT_DIRECTORY && composer install --optimize-autoloader --no-dev -n --prefer-dist"
-      - run:
-          name: Install NPM Dependencies
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $UAT_DIRECTORY && npm ci"
-      - run:
-          name: Webpack Compilation
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $UAT_DIRECTORY && npm run production"
-      - run:
-          name: Optimizing Configuration Loading
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $UAT_DIRECTORY && php artisan config:clear"
-      - run:
-          name: Cache clear
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $UAT_DIRECTORY && sudo php artisan cache:clear"
-      - run:
-          name: Migrating
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $UAT_DIRECTORY && php artisan migrate --force"
-      - run:
-          name: Passport Encryption Keys Generation
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/uat && php artisan passport:install --force"
-      - run:
-          name: Display an Inspiring Quote
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $UAT_DIRECTORY && php artisan inspire"
-      - run:
-          name: Cache clear
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $UAT_DIRECTORY && sudo php artisan cache:clear"
-      - run:
-          name: Disable Maintenance Mode
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $UAT_DIRECTORY && php artisan up"
-  production_deployment:
-    machine:
-      enabled: true
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "${PROD_SERVER_SSH_FINGERPRINT}"
-      - run:
-          name: Enable Maintenance Mode
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && php artisan down --message=\"Update in progress\" --retry=30"
-      #- run:
-      #    name: Backup Database
-      #    command: |
-      #      ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && mysqldump -u $PROD_MYSQL_USER -p$PROD_MYSQL_PASSWORD $PROD_MYSQL_DATABASE > ${PROD_BACKUP_DIRECTORY}/mysql/${PROD_MYSQL_DATABASE}-$(date "+%b_%d_%Y_%H_%M_%S").sql"
-      - run:
-          name: Checkout Master
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && git pull origin master"
-      - run:
-          name: Install Project Dependencies
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && composer install --optimize-autoloader --no-dev -n --prefer-dist"
-      - run:
-          name: Install NPM Dependencies
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && npm ci"
-      - run:
-          name: Webpack Compilation
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && npm run production"
-      - run:
-          name: Optimizing Configuration Loading
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && php artisan config:clear"
-      - run:
-          name: Migrating
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && php artisan migrate --force"
-      - run:
-          name: Passport Encryption Keys Generation
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd /var/www/html/movies/prod && php artisan passport:install --force"
-      - run:
-          name: Display an Inspiring Quote
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && php artisan inspire"
-      # Habilitarémos este comando cuando el cliente solicite acceso a producción
-      - run:
-          name: Disable Maintenance Mode
-          command: |
-            ssh ${PROD_SERVER_USER}@$PROD_SERVER_IP "cd $PROD_DIRECTORY && php artisan up"
+            # "composer.lock" can be used if it is committed to the repo
+            - v1-dependencies-{{ checksum "composer.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
-workflows:
-  version: 2
-  dev-development_deployment-uat_deployment-production_deployment:
-    jobs:
-      - test:
-          filters:
-            branches:
-              only: 
-                - master
-      - development_deployment:
-          filters:
-            branches:
-              only: 
-                - develop
-                - master
-      - hold_uat:
-          type: approval
-          requires:
-            - test
-            - development_deployment
-          filters:
-            branches:
-              only: master
-      - hold_production:
-          type: approval
-          requires:
-            - test
-            - development_deployment
-            - hold_uat
-          filters:
-            branches:
-              only: master
-      - uat_deployment:
-          requires:
-            - hold_uat
-          filters:
-            branches:
-              only: master
-      - production_deployment:
-          requires:
-            - hold_production
-          filters:
-            branches:
-              only: master
+      - run: composer install -n --prefer-dist
+
+      - save_cache:
+          key: v1-dependencies-{{ checksum "composer.json" }}
+          paths:
+            - ./vendor
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package.json" }}
+            - node-v1-
+      - run: yarn install
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+      # prepare the database
+      - run: touch storage/testing.sqlite
+      - run: php artisan migrate --env=testing --database=sqlite_testing --force
+
+      # run tests with phpunit or codecept
+      #- run: ./vendor/bin/phpunit
+      - run: ./vendor/bin/codecept build
+      - run: ./vendor/bin/codecept run
+
