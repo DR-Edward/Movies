@@ -6,8 +6,6 @@
 * Backend: Terminado
 * API: Terminado
 * Integración continua: Terminado con CircleCi
-* Pruebas de integración: Pendiente
-* Pruebas unitarias: al 50%
 
 ## Instalación rápida
 
